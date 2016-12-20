@@ -449,7 +449,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         overlayView.backgroundColor = overlayColor
         alertView.backgroundColor = alertViewBgColor
         
-        alertView.layer.cornerRadius = 15
+        alertView.layer.cornerRadius = 12
         alertView.layer.masksToBounds = true
         
         //------------------------------
