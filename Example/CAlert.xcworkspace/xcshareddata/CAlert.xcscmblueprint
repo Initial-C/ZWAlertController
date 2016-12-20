@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C8EE51AFB9E94AC50001D11275BAF9CA296AED5D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C8EE51AFB9E94AC50001D11275BAF9CA296AED5D" : 9223372036854775807,
+    "B5AB0473D5563A666578F4763ECB5DC460C01049" : 9223372036854775807,
+    "66D5715CFEF132E491936E0020150413370CE6E6" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "84550C40-E214-4162-AB46-102EA56E1DE6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C8EE51AFB9E94AC50001D11275BAF9CA296AED5D" : "ZWAlertController\/",
+    "B5AB0473D5563A666578F4763ECB5DC460C01049" : "..",
+    "66D5715CFEF132E491936E0020150413370CE6E6" : "CAlert\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CAlert",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Example\/CAlert.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.coding.net:InitialC\/CAlert.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "66D5715CFEF132E491936E0020150413370CE6E6"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:WCCSC\/cocgit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B5AB0473D5563A666578F4763ECB5DC460C01049"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Initial-C\/ZWAlertController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C8EE51AFB9E94AC50001D11275BAF9CA296AED5D"
+    }
+  ]
+}

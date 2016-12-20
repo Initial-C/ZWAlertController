@@ -1,0 +1,6 @@
+framework module ZWAlertController {
+  umbrella header "ZWAlertController-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,16 @@
+PODS:
+  - ZWAlertController (0.0.1)
+
+DEPENDENCIES:
+  - ZWAlertController (from `../`)
+
+EXTERNAL SOURCES:
+  ZWAlertController:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ZWAlertController: 2a5e9a2bf3f7685a7d2c5613643494318aa5288e
+
+PODFILE CHECKSUM: c72cca764ef378005fe559dd274c9bcd80e0b0b0
+
+COCOAPODS: 1.2.0.beta.1

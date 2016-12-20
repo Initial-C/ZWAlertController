@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CAlert_Example' do
+  pod 'ZWAlertController', :path => '../'
+
+  target 'CAlert_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

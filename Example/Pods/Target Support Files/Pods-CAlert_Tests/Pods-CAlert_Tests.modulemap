@@ -1,0 +1,6 @@
+framework module Pods_CAlert_Tests {
+  umbrella header "Pods-CAlert_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

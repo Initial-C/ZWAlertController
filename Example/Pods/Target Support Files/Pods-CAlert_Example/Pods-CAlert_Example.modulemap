@@ -1,0 +1,6 @@
+framework module Pods_CAlert_Example {
+  umbrella header "Pods-CAlert_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
