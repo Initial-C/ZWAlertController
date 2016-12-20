@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  CAlert
 //
-//  Created by Initial-C-William Chang on 10/20/2016.
-//  Copyright (c) 2016 Initial-C-William Chang. All rights reserved.
+//  Created by Initial-C on 10/20/2016.
+//  Copyright (c) 2016 Initial-C. All rights reserved.
 //
 
 import UIKit

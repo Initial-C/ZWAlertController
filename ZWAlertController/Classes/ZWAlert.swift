@@ -1,9 +1,9 @@
 //
 //  CAlert.swift
-//  CPods
+//  CAlert
 //
-//  Created by Mr.C on 16/10/19.
-//  Copyright © 2016年 CocoaPods. All rights reserved.
+//  Created by Initial-C on 12/20/2016.
+//  Copyright (c) 2016 Initial-C. All rights reserved.
 //
 
 import Foundation

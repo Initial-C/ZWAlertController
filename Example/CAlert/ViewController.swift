@@ -1,9 +1,9 @@
 //
-//  ViewController.swift
-//  ZWAlertController-DEMO
+//  AppDelegate.swift
+//  CAlert
 //
-//  Created by Daiki Okumura on 2014/12/30.
-//  Copyright (c) 2014 Daiki Okumura. All rights reserved.
+//  Created by Initial-C on 10/20/2016.
+//  Copyright (c) 2016 Initial-C. All rights reserved.
 //
 
 import UIKit
