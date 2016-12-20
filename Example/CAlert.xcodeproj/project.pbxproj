@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1CDC29A151B6E592EE631C18 /* Pods_CAlert_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69067EF42E80211FB316C65 /* Pods_CAlert_Example.framework */; };
+		520AD5621E0956D400CAE1E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 520AD5611E0956D400CAE1E3 /* Main.storyboard */; };
 		528BDD161E09413A005EB70D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528BDD151E09413A005EB70D /* ViewController.swift */; };
 		528BDD181E094251005EB70D /* ZWAlertController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528BDD171E094251005EB70D /* ZWAlertController.framework */; };
 		535D0CBC1DB8A8DC0000F4BA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 535D0CBB1DB8A8DC0000F4BA /* QuartzCore.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
@@ -33,6 +33,7 @@
 		24796E83457B5D1EE104A8FF /* Pods-CAlert_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CAlert_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CAlert_Example/Pods-CAlert_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2512D66AE42E07A26FA23B48 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		425D2195A48057A075F627FF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		520AD5611E0956D400CAE1E3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		528BDD151E09413A005EB70D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		528BDD171E094251005EB70D /* ZWAlertController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZWAlertController.framework; path = "Pods/../build/Release-iphoneos/ZWAlertController/ZWAlertController.framework"; sourceTree = "<group>"; };
 		535D0CB91DB8A8B40000F4BA /* CAlert.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CAlert.framework; path = "Pods/../build/Debug-iphoneos/CAlert/CAlert.framework"; sourceTree = "<group>"; };
@@ -41,7 +42,6 @@
 		607FACD01AFB9204008FA782 /* CAlert_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CAlert_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* CAlert_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CAlert_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,7 +113,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				528BDD151E09413A005EB70D /* ViewController.swift */,
-				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				520AD5611E0956D400CAE1E3 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
@@ -257,7 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				520AD5621E0956D400CAE1E3 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -394,14 +394,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		607FACD91AFB9204008FA782 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				607FACDA1AFB9204008FA782 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

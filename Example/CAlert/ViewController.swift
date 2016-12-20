@@ -48,7 +48,6 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         let message = "A message should be a short, complete sentence."
         let cancelButtonTitle = "OK"
         let alertController = ZWAlertController(title: title, message: message, preferredStyle: .alert)
-        let aler =
         // Create the action.
         let cancelAction = ZWAlertAction(title: cancelButtonTitle, style: .cancel) { action in
             NSLog("The simple alert's cancel action occured.")
@@ -167,7 +166,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             // Listen for changes to the text field's text so that we can toggle the current
             // action's enabled property based on whether the user has entered a sufficiently
             // secure entry.
-            NotificationCenter.default.adZWbserver(self, selector: "handleTextFieldTextDidChangeNotification:", name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
+            NotificationCenter.default.addObserver(self, selector: #selector(ViewController.handleTextFieldTextDidChangeNotification(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
             
             textField?.isSecureTextEntry = true
         }
@@ -239,7 +238,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             textField?.keyboardAppearance = UIKeyboardAppearance.dark
             textField?.returnKeyType = UIReturnKeyType.next
             
-            var label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+            let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
             label.text = "ID"
             label.font = UIFont(name: "GillSans-Bold", size: 15.0)
             textField?.leftView = label
@@ -257,7 +256,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             textField?.keyboardAppearance = UIKeyboardAppearance.dark
             textField?.returnKeyType = UIReturnKeyType.send
             
-            var label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+            let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
             label.text = "PASS"
             label.font = UIFont(name: "GillSans-Bold", size: 15.0)
             textField?.leftView = label

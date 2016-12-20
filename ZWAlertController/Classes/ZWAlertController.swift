@@ -13,25 +13,25 @@ import Foundation
 import UIKit
 
 let ZWAlertActionEnabledDidChangeNotification = "ZWAlertActionEnabledDidChangeNotification"
-
-enum ZWAlertActionStyle : Int {
+let zwAlert = ZWAlertController()
+public enum ZWAlertActionStyle : Int {
     case `default`
     case cancel
     case destructive
 }
 
-enum ZWAlertControllerStyle : Int {
+public enum ZWAlertControllerStyle : Int {
     case actionSheet
     case alert
 }
 
 // MARK: ZWAlertAction Class
 
-class ZWAlertAction : NSObject, NSCopying {
+open class ZWAlertAction : NSObject, NSCopying {
     var title: String
-    var style: ZWAlertActionStyle
-    var handler: ((ZWAlertAction?) -> Void)!
-    var enabled: Bool {
+    public var style: ZWAlertActionStyle
+    public var handler: ((ZWAlertAction?) -> Void)!
+    open var enabled: Bool {
         didSet {
             if (oldValue != enabled) {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: ZWAlertActionEnabledDidChangeNotification), object: nil)
@@ -39,14 +39,14 @@ class ZWAlertAction : NSObject, NSCopying {
         }
     }
     
-    required init(title: String, style: ZWAlertActionStyle, handler: ((ZWAlertAction?) -> Void)!) {
+    required public init(title: String, style: ZWAlertActionStyle, handler: ((ZWAlertAction?) -> Void)!) {
         self.title = title
         self.style = style
         self.handler = handler
         self.enabled = true
     }
     
-    func copy(with zone: NSZone?) -> Any {
+    public func copy(with zone: NSZone?) -> Any {
         let copy = type(of: self).init(title: title, style: style, handler: handler)
         copy.enabled = self.enabled
         return copy
@@ -140,17 +140,17 @@ class ZWAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
 
 // MARK: ZWAlertController Class
 
-class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
+open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
     
     // Message
-    var message: String?
+    open var message: String?
     
     // AlertController Style
     fileprivate(set) var preferredStyle: ZWAlertControllerStyle?
     
     // OverlayView
     fileprivate var overlayView = UIView()
-    var overlayColor = UIColor(red:0, green:0, blue:0, alpha:0.5)
+    open var overlayColor = UIColor(red:0, green:0, blue:0, alpha:0.5)
     
     // ContainerView
     fileprivate var containerView = UIView()
@@ -158,7 +158,7 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
     
     // AlertView
     fileprivate var alertView = UIView()
-    var alertViewBgColor = UIColor(red:239/255, green:240/255, blue:242/255, alpha:1.0)
+    open var alertViewBgColor = UIColor(red:239/255, green:240/255, blue:242/255, alpha:1.0)
     fileprivate var alertViewWidth: CGFloat = 270.0
     fileprivate var alertViewHeightConstraint: NSLayoutConstraint!
     fileprivate var alertViewPadding: CGFloat = 15.0
@@ -178,22 +178,23 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
     
     // TitleLabel
     fileprivate var titleLabel = UILabel()
-    var titleFont = UIFont(name: "HelveticaNeue-Bold", size: 18)
-    var titleTextColor = UIColor(red:77/255, green:77/255, blue:77/255, alpha:1.0)
+    open var titleFont = UIFont(name: "HelveticaNeue-Bold", size: 18)
+    open var titleTextColor = UIColor(red:77/255, green:77/255, blue:77/255, alpha:1.0)
     
     // MessageView
     fileprivate var messageView = UILabel()
-    var messageFont = UIFont(name: "HelveticaNeue", size: 15)
-    var messageTextColor = UIColor(red:77/255, green:77/255, blue:77/255, alpha:1.0)
+    open var messageFont = UIFont(name: "HelveticaNeue", size: 15)
+    open var messageTextColor = UIColor(red:77/255, green:77/255, blue:77/255, alpha:1.0)
     
     // TextFieldContainerView
     fileprivate var textFieldContainerView = UIView()
-    var textFieldBorderColor = UIColor(red: 203.0/255, green: 203.0/255, blue: 203.0/255, alpha: 1.0)
+    open var textFieldBorderColor = UIColor(red: 203.0/255, green: 203.0/255, blue: 203.0/255, alpha: 1.0)
     
     // TextFields
-    fileprivate(set) var textFields: [AnyObject]?
+//    fileprivate(set)
+    open var textFields: [AnyObject]?
     fileprivate let textFieldHeight: CGFloat = 30.0
-    var textFieldBgColor = UIColor.white
+    open var textFieldBgColor = UIColor.white
     fileprivate let textFieldCornerRadius: CGFloat = 4.0
     fileprivate var _textLimit : Int32?
     // ButtonAreaScrollView
@@ -224,22 +225,25 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
             return self._textLimit
         }
     }
-    var buttonFont: [ZWAlertActionStyle : UIFont?] = [
+    class open func getInstance() -> ZWAlertController {
+        return zwAlert
+    }
+    public var buttonFont: [ZWAlertActionStyle : UIFont?] = [
         .default : UIFont(name: "HelveticaNeue-Bold", size: 16),
         .cancel  : UIFont(name: "HelveticaNeue-Bold", size: 16),
         .destructive  : UIFont(name: "HelveticaNeue-Bold", size: 16)
     ]
-    var buttonTextColor: [ZWAlertActionStyle : UIColor] = [
+    public var buttonTextColor: [ZWAlertActionStyle : UIColor] = [
         .default : UIColor.white,
         .cancel  : UIColor.white,
         .destructive  : UIColor.white
     ]
-    var buttonBgColor: [ZWAlertActionStyle : UIColor] = [
+    public var buttonBgColor: [ZWAlertActionStyle : UIColor] = [
         .default : UIColor(red:52/255, green:152/255, blue:219/255, alpha:1),
         .cancel  : UIColor(red:127/255, green:140/255, blue:141/255, alpha:1),
         .destructive  : UIColor(red:231/255, green:76/255, blue:60/255, alpha:1)
     ]
-    var buttonBgColorHighlighted: [ZWAlertActionStyle : UIColor] = [
+    public var buttonBgColorHighlighted: [ZWAlertActionStyle : UIColor] = [
         .default : UIColor(red:74/255, green:163/255, blue:223/255, alpha:1),
         .cancel  : UIColor(red:140/255, green:152/255, blue:153/255, alpha:1),
         .destructive  : UIColor(red:234/255, green:97/255, blue:83/255, alpha:1)
@@ -250,7 +254,7 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
     fileprivate var cancelButtonTag = 0
     
     // Initializer
-    convenience init(title: String?, message: String?, preferredStyle: ZWAlertControllerStyle) {
+    convenience public init(title: String?, message: String?, preferredStyle: ZWAlertControllerStyle) {
         self.init(nibName: nil, bundle: nil)
         
         self.title = title
@@ -417,16 +421,16 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         layoutView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if (!isAlert() && cancelButtonTag != 0) {
@@ -694,7 +698,7 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
     // MARK: Public Methods
     
     // Attaches an action object to the alert or action sheet.
-    func addAction(_ action: ZWAlertAction) {
+    open func addAction(_ action: ZWAlertAction) {
         // Error
         if (action.style == ZWAlertActionStyle.cancel) {
             for ac in actions as! [ZWAlertAction] {
@@ -721,7 +725,7 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
     }
     
     // Adds a text field to an alert.
-    func addTextFieldWithConfigurationHandler(_ configurationHandler: ((UITextField?) -> Void)!) {
+    open func addTextFieldWithConfigurationHandler(_ configurationHandler: ((UITextField?) -> Void)!) {
         
         // You can add a text field only if the preferredStyle property is set to ZWAlertControllerStyle.Alert.
         if (!isAlert()) {
@@ -738,7 +742,9 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         textField.borderStyle = UITextBorderStyle.none
         textField.backgroundColor = textFieldBgColor
         textField.delegate = self
-        textField.limitTextLength(textLimit!)
+        if textLimit != nil {
+            textField.limitTextLength(textLimit!)
+        }
         if ((configurationHandler) != nil) {
             configurationHandler(textField)
         }
@@ -747,11 +753,11 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         textFieldContainerView.addSubview(textField)
     }
     
-    func isAlert() -> Bool { return preferredStyle == .alert }
+    open func isAlert() -> Bool { return preferredStyle == .alert }
     
     // MARK: UITextFieldDelegate Methods
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField.canResignFirstResponder) {
             textField.resignFirstResponder()
             self.dismiss(animated: true, completion: nil)
@@ -761,12 +767,12 @@ class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
     
     // MARK: UIViewControllerTransitioningDelegate Methods
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         layoutView()
         return ZWAlertAnimation(isPresenting: true)
     }
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ZWAlertAnimation(isPresenting: false)
     }
 }

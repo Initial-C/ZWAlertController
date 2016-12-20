@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import CAlert
+import ZWAlertController
 
 class Tests: XCTestCase {
     
