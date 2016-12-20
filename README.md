@@ -21,7 +21,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 Simple Alert View written in Swift, which can be used as a UIAlertController replacement.  
 It supports from iOS7! It is simple and easily customizable!
 
-![BackgroundImage]() ![BackgroundImage]()
+![BackgroundImage](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Alert.gif) ![BackgroundImage](https://github.com/Initial-C/ZWAlertController/blob/master/Show/AlertSheet.gif)
 
 ## Easy to use
 ZWAlertController can be used as a `UIAlertController`.
@@ -51,8 +51,8 @@ presentViewController(alertController, animated: true, completion: nil)
 * change Fonts
 * change color (Overlay, View, Text, Buttons)
 
-![BackgroundImage]()
-![BackgroundImage]()
+![BackgroundImage](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Custom.gif)
+![BackgroundImage](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Limit-Entry-Range.gif)
 
 #### Add TextField
 ```swift
