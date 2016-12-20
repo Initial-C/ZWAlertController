@@ -21,29 +21,27 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 Simple Alert View written in Swift, which can be used as a UIAlertController replacement.  
 It supports from iOS7! It is simple and easily customizable!
 
-![BackgroundImage](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Alert.gif) ![BackgroundImage](https://github.com/Initial-C/ZWAlertController/blob/master/Show/AlertSheet.gif)
+![AlertStyle](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Alert.gif) 
+![SheetStyle](https://github.com/Initial-C/ZWAlertController/blob/master/Show/AlertSheet.gif)
+![ZWAlert](https://github.com/Initial-C/ZWAlertController/blob/master/Show/ZWAlert.gif)
 
 ## Easy to use
 ZWAlertController can be used as a `UIAlertController`.
-   `swift
+```swift
 // Set title, message and alert style
 let alertController = ZWAlertController(title: "title", message: "message", preferredStyle: .Alert)
-
 // Create the action.
 let cancelAction = ZWAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-
 // You can add plural action.
 let okAction = ZWAlertAction(title: "OK" style: .Default) { action in
-    NSLog("OK action occured.")
+NSLog("OK action occured.")
 }
-
 // Add the action.
 alertController.addAction(cancelAction)
 alertController.addAction(okAction)
-
 // Show alert
 presentViewController(alertController, animated: true, completion: nil)
-`
+```
 
 ## Customize
 
@@ -51,8 +49,8 @@ presentViewController(alertController, animated: true, completion: nil)
 * change Fonts
 * change color (Overlay, View, Text, Buttons)
 
-![BackgroundImage](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Custom.gif)
-![BackgroundImage](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Limit-Entry-Range.gif)
+![Custom](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Custom.gif)
+![Limit-Entry-Range](https://github.com/Initial-C/ZWAlertController/blob/master/Show/Limit-Entry-Range.gif)
 
 #### Add TextField
 ```swift
@@ -61,6 +59,7 @@ alertController.addTextFieldWithConfigurationHandler { textField in
     // ex) textField.placeholder = "Password"
     //     textField.secureTextEntry = true
 }
+alertController.textLimit = 20  // you can limit str length for Chinese or English character, base for English character range
 ```
 
 #### Change Design
