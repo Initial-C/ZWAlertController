@@ -75,6 +75,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         
         let otherAction = ZWAlertAction(title: otherButtonTitle, style: .default) { action in
             NSLog("The \"Okay/Cancel\" alert's other action occured.")
+            self.navigationController?.pushViewController(SecondViewController.init(), animated: true)
         }
         
         // Add the actions.

@@ -14,7 +14,7 @@ public enum AlertStyle {
     case success,error,warning,none
     case customImag(imageFile:String)
 }
-let ccAlert = CAlert()
+let cAlert = CAlert()
 open class CAlert: UIViewController {
     let kBakcgroundTansperancy: CGFloat = 0.7
     let kHeightMargin: CGFloat = 10.0
@@ -37,7 +37,7 @@ open class CAlert: UIViewController {
     let kFont = "Helvetica"
     
     class open func getInstance() -> CAlert {
-        return ccAlert
+        return cAlert
     }
     init() {
         super.init(nibName: nil, bundle: nil)
