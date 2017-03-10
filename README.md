@@ -9,11 +9,14 @@
 
  Module | Address | Version | Date | Author
 :------:|:-------:|:-------:|:----:|:-----:|
-ZWAlert&ZWAlertController |  https://github.com/Initial-C/ZWAlertController.git | 0.0.1| 2016.12 | Initial-C
+ZWAlert&ZWAlertController |  https://github.com/Initial-C/ZWAlertController.git | 0.0.3| 2017.03 | Initial-C
 
 ## Example
+&emsp; __0.0.3 version were updated something about limit characters, it can limit the input of Chinese and English Emoji more precisely__
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+&emsp; __0.0.3 版本支持ZWAlertController弹出文本输入框下的中英文emoji混输以及完美支持emoji字符数限制__
+
+&emsp; To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
 # ZWAlertController

@@ -217,7 +217,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     // Buttons
     fileprivate var buttons = [UIButton]()
     
-    open var textLimit : Int32? {
+    open var textLimit : Int32? {       // This is mean limit Chinese characters, example: 10 Chinese characters ≈ 5 English characters
         set {
             self._textLimit = newValue
         }
@@ -737,13 +737,13 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             textFields = []
         }
         
-        let textField = UITextField()
+        let textField = ZWTextField()
         textField.frame.size = CGSize(width: innerContentWidth, height: textFieldHeight)
         textField.borderStyle = UITextBorderStyle.none
         textField.backgroundColor = textFieldBgColor
         textField.delegate = self
         if textLimit != nil {
-            textField.limitTextLength(textLimit!)
+            textField.maxBytesLength = Int(textLimit!)
         }
         if ((configurationHandler) != nil) {
             configurationHandler(textField)

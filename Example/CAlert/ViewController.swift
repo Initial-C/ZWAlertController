@@ -129,7 +129,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         let otherButtonTitle = "OK"
         
         let alertController = ZWAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.textLimit = 10
+        alertController.textLimit = 30  // == 限制10个中文字符 limit 10 Chinese characters, equal to 30 English characters
         // Add the text field for text entry.
         alertController.addTextFieldWithConfigurationHandler { textField in
             // If you need to customize the text field, you can ZW so here.
