@@ -1,9 +1,14 @@
 # ZWAlertController
 
-[![Build Status](https://travis-ci.org/Initial-C/ZWAlertController.svg?branch=master)](https://travis-ci.org/Initial-C/ZWAlertController)
+[![Travis](https://img.shields.io/travis/Initial-C/ZWAlertController/master.svg)](https://travis-ci.org/Initial-C/ZWAlertController)
 [![Version](https://img.shields.io/cocoapods/v/ZWAlertController.svg?style=flat)](http://cocoapods.org/pods/ZWAlertController)
+[![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
+)](https://developer.apple.com/swift)
+[![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
+)](https://developer.apple.com/iphone/index.action)
 [![License](https://img.shields.io/cocoapods/l/ZWAlertController.svg?style=flat)](http://cocoapods.org/pods/ZWAlertController)
 [![Platform](https://img.shields.io/cocoapods/p/ZWAlertController.svg?style=flat)](http://cocoapods.org/pods/ZWAlertController)
+[![jianshu](https://img.shields.io/badge/%E7%AE%80%E4%B9%A6-%E9%81%9B%E7%8B%97%E7%9A%84%E7%8C%AB-orange.svg)](http://www.jianshu.com/u/96e1fcfe5d75)
 
 **Made by InitialC**
 
@@ -114,3 +119,5 @@ Initial-C-William Chang, iwilliamchang@outlook.com
 ## License
 
 ZWAlertController is available under the MIT license. See the LICENSE file for more info.
+
+
