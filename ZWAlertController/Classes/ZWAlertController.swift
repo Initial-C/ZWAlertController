@@ -140,7 +140,7 @@ class ZWAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
 
 // MARK: ZWAlertController Class
 
-open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
+open class ZWAlertController : UIViewController, UITextFieldDelegate {
     
     // Message
     open var message: String?
@@ -217,7 +217,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     // Buttons
     fileprivate var buttons = [UIButton]()
     
-    open var textLimit : Int32? {       // This is mean limit Chinese characters, example: 10 Chinese characters ≈ 5 English characters
+    open var textLimit : Int32? {
         set {
             self._textLimit = newValue
         }
@@ -252,7 +252,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     fileprivate var layoutFlg = false
     fileprivate var keyboardHeight: CGFloat = 0.0
     fileprivate var cancelButtonTag = 0
-    
+    fileprivate var currentAction : ZWAlertAction?
     // Initializer
     convenience public init(title: String?, message: String?, preferredStyle: ZWAlertControllerStyle) {
         self.init(nibName: nil, bundle: nil)
@@ -665,7 +665,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     
     @objc func handleAlertActionEnabledDidChangeNotification(_ notification: Notification) {
         for i in 0..<buttons.count {
-            buttons[i].isEnabled = actions[i].enabled
+            buttons[i].isEnabled = actions[i].isEnabled
         }
     }
     
@@ -719,6 +719,9 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         button.isEnabled = action.enabled
         button.layer.cornerRadius = buttonCornerRadius
         button.addTarget(self, action: #selector(ZWAlertController.buttonTapped(_:)), for: .touchUpInside)
+        if action.style == .default || action.style == .destructive {
+            self.currentAction = action
+        }
         button.tag = buttons.count + 1
         buttons.append(button)
         buttonContainer.addSubview(button)
@@ -748,7 +751,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         if ((configurationHandler) != nil) {
             configurationHandler(textField)
         }
-        
+        textField.returnKeyType = .done
         textFields!.append(textField)
         textFieldContainerView.addSubview(textField)
     }
@@ -759,6 +762,9 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField.canResignFirstResponder) {
+            if (currentAction?.handler != nil) {
+                currentAction?.handler(currentAction)
+            }
             textField.resignFirstResponder()
             self.dismiss(animated: true, completion: nil)
         }
@@ -767,12 +773,12 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     
     // MARK: UIViewControllerTransitioningDelegate Methods
     
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    open override func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         layoutView()
         return ZWAlertAnimation(isPresenting: true)
     }
     
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    open override func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ZWAlertAnimation(isPresenting: false)
     }
 }
