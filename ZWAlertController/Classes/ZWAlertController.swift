@@ -140,7 +140,7 @@ class ZWAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
 
 // MARK: ZWAlertController Class
 
-open class ZWAlertController : UIViewController, UITextFieldDelegate {
+open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
     
     // Message
     open var message: String?
@@ -271,7 +271,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(ZWAlertController.handleKeyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         // Delegate
-        self.transitioningDelegate = self
+        self.transitioningDelegate = self as! UIViewControllerTransitioningDelegate
         
         // Screen Size
         var screenSize = UIScreen.main.bounds.size
@@ -773,12 +773,12 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate {
     
     // MARK: UIViewControllerTransitioningDelegate Methods
     
-    open override func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         layoutView()
         return ZWAlertAnimation(isPresenting: true)
     }
     
-    open override func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ZWAlertAnimation(isPresenting: false)
     }
 }

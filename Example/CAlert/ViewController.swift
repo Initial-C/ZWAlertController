@@ -29,7 +29,8 @@ class ViewController : UITableViewController, UITextFieldDelegate {
                 self.showOtherAlert,
                 self.showTextEntryAlert,
                 self.showSecureTextEntryAlert,
-                self.showCustomAlert
+                self.showCustomAlert,
+                self.showCAlert
             ],
             // Action sheet style alerts.
             [
@@ -75,7 +76,6 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         
         let otherAction = ZWAlertAction(title: otherButtonTitle, style: .default) { action in
             NSLog("The \"Okay/Cancel\" alert's other action occured.")
-            self.navigationController?.pushViewController(SecondViewController.init(), animated: true)
         }
         
         // Add the actions.
@@ -277,7 +277,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             let textFields = self.customAlertController.textFields as? Array<UITextField>
             if textFields != nil {
                 for textField: UITextField in textFields! {
-                    NSLog("  \(textField.placeholder!): \(textField.text)")
+                    NSLog("  \(textField.placeholder!): \(String(describing: textField.text))")
                 }
             }
         }
@@ -290,6 +290,10 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         present(customAlertController, animated: true, completion: nil)
     }
     
+    /// Show the child alert style - CAlert
+    func showCAlert(_: IndexPath) {
+        _ = CAlert.getInstance().showAlert("Love you forever")
+    }
     // MARK: ZWAlertControllerStyleActionSheet Style Alerts
     
     /// Show a dialog with an "Okay" and "Cancel" button.

@@ -1,6 +1,6 @@
 # ZWAlertController
 
-[![CI Status](http://img.shields.io/travis/Initial-C-William Chang/ZWAlertController.svg?style=flat)](https://travis-ci.org/Initial-C-William Chang/ZWAlertController)
+[![Build Status](https://travis-ci.org/Initial-C/ZWAlertController.svg?branch=master)](https://travis-ci.org/Initial-C/ZWAlertController)
 [![Version](https://img.shields.io/cocoapods/v/ZWAlertController.svg?style=flat)](http://cocoapods.org/pods/ZWAlertController)
 [![License](https://img.shields.io/cocoapods/l/ZWAlertController.svg?style=flat)](http://cocoapods.org/pods/ZWAlertController)
 [![Platform](https://img.shields.io/cocoapods/p/ZWAlertController.svg?style=flat)](http://cocoapods.org/pods/ZWAlertController)
