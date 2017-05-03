@@ -271,7 +271,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         NotificationCenter.default.addObserver(self, selector: #selector(ZWAlertController.handleKeyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         // Delegate
-        self.transitioningDelegate = self as! UIViewControllerTransitioningDelegate
+        self.transitioningDelegate = self
         
         // Screen Size
         var screenSize = UIScreen.main.bounds.size
