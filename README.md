@@ -1,6 +1,6 @@
 # ZWAlertController
 
-[![Travis](https://img.shields.io/travis/Initial-C/ZWAlertController/master.svg)](https://travis-ci.org/Initial-C/ZWAlertController)
+[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://travis-ci.org/Initial-C/ZWAlertController)
 [![Version](https://img.shields.io/cocoapods/v/ZWAlertController.svg?style=flat)](http://cocoapods.org/pods/ZWAlertController)
 [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
 )](https://developer.apple.com/swift)
