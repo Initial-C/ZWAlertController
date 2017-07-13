@@ -13,7 +13,7 @@ public enum FashionStyle {
     case customImg(imageFile:String)
 }
 let cFashion = CFashionAlert()
-class CFashionAlert: UIViewController {
+open class CFashionAlert: UIViewController {
     
     
     let kBackgroundAlpha : CGFloat = 0.7
@@ -40,7 +40,7 @@ class CFashionAlert: UIViewController {
 //
 //        // Do any additional setup after loading the view.
 //    }
-    class func getFashion() -> CFashionAlert {
+    class open func getFashion() -> CFashionAlert {
         return cFashion
     }
     init() {
@@ -53,7 +53,7 @@ class CFashionAlert: UIViewController {
         strongSelf = self
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -160,7 +160,7 @@ extension CFashionAlert {
 
 }
 extension CFashionAlert {
-    func showFashionToObjc(title: NSString, subTitle: NSString?, leftBtnTitle: NSString?, rightBtnTitle: NSString?, backImageName: NSString, action: ((_ isClickRightBtn: Bool) -> Void)?) {
+    open func showFashionToObjc(title: NSString, subTitle: NSString?, leftBtnTitle: NSString?, rightBtnTitle: NSString?, backImageName: NSString, action: ((_ isClickRightBtn: Bool) -> Void)?) {
         showFashion(title: title as String, subTitle: subTitle as? String, leftBtnTitle: leftBtnTitle as? String, rightBtnTitle: rightBtnTitle as? String, type: .customImg(imageFile: backImageName as String), action: action)
     }
     open func showFashion(title: String, subTitle: String?, leftBtnTitle: String?, rightBtnTitle: String?, type: FashionStyle, action: ((_ isClickRightBtn: Bool) -> Void)?) {
