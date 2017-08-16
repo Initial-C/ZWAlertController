@@ -16,7 +16,7 @@ public enum FashionTitleType : NSInteger {
     case board, warning, tips
 }
 public enum FashionBtnType : NSInteger {
-    case confirm, cancle, update
+    case confirm, cancle, update, other
 }
 let cFashion = CFashionAlert()
 class CFashionAlert: UIViewController {
@@ -132,6 +132,9 @@ extension CFashionAlert {
                 button.tag = 0
                 buttonImgVs.append(button)
                 break
+            case .other:
+                lBtnView.isHidden = true
+                break
             default:
                 break
             }
@@ -145,6 +148,9 @@ extension CFashionAlert {
                 break
             case .update:
                 btnImageStr = "gx_gx"
+                break
+            case .other:
+                rBtnView.isHidden = true
                 break
             default:
                 break
@@ -371,6 +377,9 @@ extension CFashionAlert {
         }
         resizeAndReLayout()
         animateAlert()
+    }
+    func showFashionAmazingToObjc(titleType : NSInteger, subtitle: NSString?, leftBtnType: NSInteger, rightBtnType: NSInteger, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
+        showFashionAmazing(titleType: FashionTitleType(rawValue: titleType)!, subtitle: subtitle, leftBtnType: FashionBtnType(rawValue: leftBtnType), rightBtnType: FashionBtnType(rawValue: rightBtnType), backImage: backImage, action: action)
     }
     open func showFashionAmazing(titleType : FashionTitleType, subtitle: NSString?, leftBtnType: FashionBtnType?, rightBtnType: FashionBtnType?, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
         userAction = action
