@@ -12,10 +12,16 @@ public enum FashionStyle {
     case success,warning,exit,none
     case customImg(imageFile:String)
 }
+public enum FashionTitleType : NSInteger {
+    case board, warning, tips
+}
+public enum FashionBtnType : NSInteger {
+    case confirm, cancle, update
+}
 let cFashion = CFashionAlert()
-open class CFashionAlert: UIViewController {
+class CFashionAlert: UIViewController {
     
-    
+    public var isFashionBoard : Bool = false
     let kBackgroundAlpha : CGFloat = 0.7
     let kFashionFont = "PingFang SC"
     let kExitTitleColor = UIColor.colorForRGB(0xFFA500)
@@ -29,18 +35,36 @@ open class CFashionAlert: UIViewController {
     var userAction:((_ isClickRightBtn : Bool) -> Void)? = nil
     var contentView = UIView()
     var contentWhiteV = UIView()
+    lazy var lBtnView : UIButton = {
+        let btnImv = UIButton.init(type: .custom)
+        btnImv.setImage(UIImage.init(named: "gx_left_a"), for: .normal)
+        btnImv.setImage(UIImage.init(named: "gx_left_b"), for: .highlighted)
+        btnImv.isHidden = true
+        btnImv.tag = 0
+        return btnImv
+    }()
+    lazy var rBtnView : UIButton = {
+        let btnImv = UIButton.init(type: .custom)
+        btnImv.setImage(UIImage.init(named: "gx_right_a"), for: .normal)
+        btnImv.setImage(UIImage.init(named: "gx_right_b"), for: .highlighted)
+        btnImv.isHidden = true
+        btnImv.tag = 1
+        return btnImv
+    }()
+    var titleImageV = UIImageView()
     var lineView = UIView()
     var contentImV : UIImageView?
     var fashionTitle : UILabel = UILabel()
     var subTitleTextView = UITextView()
     var buttons = [UIButton]()
+    var buttonImgVs = [UIImageView]()
     var strongSelf:CFashionAlert?
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
 //
 //        // Do any additional setup after loading the view.
 //    }
-    class open func getFashion() -> CFashionAlert {
+    class func getFashion() -> CFashionAlert {
         return cFashion
     }
     init() {
@@ -53,13 +77,17 @@ open class CFashionAlert: UIViewController {
         strongSelf = self
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        resizeAndReLayout()
+        if isFashionBoard {
+            resizeBoardAndReLayout()
+        } else {
+            resizeAndReLayout()
+        }
     }
 
 }
@@ -77,11 +105,62 @@ extension CFashionAlert {
         fashionTitle.font = UIFont(name: kFashionFont, size:12)
         fashionTitle.textColor = .black
     }
+    func setupTitleImage(type : FashionTitleType?) {
+        var titleStr : String = ""
+        if let type = type {
+            switch type {
+            case .board:
+                titleStr = "gx_gonggao"
+                break
+            case .tips:
+                titleStr = "gx_tishi"
+                break
+            case .warning:
+                titleStr = "gx_jingao"
+                break
+            }
+        }
+        titleImageV = UIImageView.init(image: UIImage.init(named: titleStr))
+    }
+    func setupButtonImage(leftType : FashionBtnType?, rightType : FashionBtnType?) {
+        buttonImgVs.removeAll()
+        if let lType = leftType {
+            lBtnView.isHidden = false
+            switch lType {
+            case .cancle:
+                let button: UIImageView = UIImageView.init(image: UIImage.init(named: "gx_quxiao"))
+                button.tag = 0
+                buttonImgVs.append(button)
+                break
+            default:
+                break
+            }
+        }
+        if let rType = rightType {
+            rBtnView.isHidden = false
+            var btnImageStr = ""
+            switch rType {
+            case .confirm:
+                btnImageStr = "gx_queren"
+                break
+            case .update:
+                btnImageStr = "gx_gx"
+                break
+            default:
+                break
+            }
+            let button: UIImageView = UIImageView.init(image: UIImage.init(named: btnImageStr))
+            button.tag = 1
+            buttonImgVs.append(button)
+        }
+    }
     func setupSubtitleTextView() {
         subTitleTextView.text = ""
         subTitleTextView.textAlignment = .center
-        subTitleTextView.font = UIFont(name: kFashionFont, size:16)
-        subTitleTextView.textColor = UIColor.colorForRGB(0x797979)
+        subTitleTextView.font = UIFont(name: kFashionFont, size:12)
+        subTitleTextView.textColor = UIColor.colorForRGB(0xffffff)
+        subTitleTextView.backgroundColor = .clear
+        subTitleTextView.isScrollEnabled = false
         subTitleTextView.isEditable = false
     }
     func resizeAndReLayout() {
@@ -104,8 +183,8 @@ extension CFashionAlert {
         contentWhiteV.frame.size = CGSize.init(width: kContentWidth - kMargin * 2, height: kContentHeight - kMargin * 2)
         contentWhiteV.center = CGPoint.init(x: kContentWidth * 0.5, y: kContentHeight * 0.5)
         contentView.addSubview(contentWhiteV)
-
-        var kTitleY : CGFloat = kDeviceHeightRatio * 48
+        
+        var kTitleY : CGFloat = subTitleTextView.text.isEmpty ? 48 * kDeviceHeightRatio : 20 * kDeviceHeightRatio
         let kTitleX : CGFloat = 10
         let kTitleW : CGFloat = kContentWidth - kTitleX * 2
         let kTitleH : CGFloat = 20
@@ -114,41 +193,44 @@ extension CFashionAlert {
             contentView.addSubview(fashionTitle)
         }
         
-        var kTextViewH : CGFloat = 60
+        let kTextViewH : CGFloat = 60
         if subTitleTextView.text.isEmpty == false {
-            let subtitleString = subTitleTextView.text! as NSString
-            let rect = subtitleString.boundingRect(with: CGSize(width: kTitleW, height: 0.0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:subTitleTextView.font!], context: nil)
-            kTitleY += kTitleH + kTitleX
-            kTextViewH = ceil(rect.size.height) + 10.0
-            subTitleTextView.frame = CGRect(x: kTitleX, y: kContentY, width: kTitleW, height: kTextViewH)
+            subTitleTextView.frame = CGRect.init(x: kTitleX + 10, y: fashionTitle.frame.maxY, width: kTitleW - 20, height: kTextViewH)
+            var oriSubRect = subTitleTextView.frame
+            let subSize = subTitleTextView.sizeThatFits(CGSize.init(width: oriSubRect.width, height: CGFloat(MAXFLOAT)))
+            oriSubRect.size.height = subSize.height
+            subTitleTextView.frame = oriSubRect
+            kTitleY = subTitleTextView.frame.maxY
             contentView.addSubview(subTitleTextView)
+        } else {
+            kTitleY += 42 * kDeviceHeightRatio
         }
         
-        kTitleY += 42 * kDeviceHeightRatio
         lineView.backgroundColor = .black
         lineView.frame = CGRect.init(x: contentWhiteV.frame.origin.x, y: kTitleY, width: contentWhiteV.frame.width, height: 1.2)
         contentView.addSubview(lineView)
         
         let middleH = kDeviceHeightRatio <= 1.0 ? 20 * kDeviceHeightRatio : 40
-        let middleLineV = UIView.init(frame: CGRect.init(x: kContentWidth * 0.5, y: lineView.frame.maxY + 7 * kDeviceHeightRatio, width: 1.2, height: middleH))
+        let middleLineV = UIView.init(frame: CGRect.init(x: kContentWidth * 0.5, y: lineView.frame.maxY + 5 * kDeviceHeightRatio, width: 1.2, height: middleH))
         middleLineV.backgroundColor = .black
+        middleLineV.isHidden = buttons.count < 2
         contentView.addSubview(middleLineV)
         
         let btnW : CGFloat = contentWhiteV.frame.width / CGFloat(buttons.count)
-        let btnH : CGFloat = kContentHeight - lineView.frame.maxY - kMargin
+        let btnH : CGFloat = 35 * kDeviceHeightRatio
         for i in 0 ..< buttons.count {
-            buttons[i].frame = CGRect.init(x: btnW * CGFloat(i), y: contentWhiteV.frame.height - btnH, width: btnW, height: btnH)
+            buttons[i].frame = CGRect.init(x: btnW * CGFloat(i), y: lineView.frame.maxY - kMargin, width: btnW, height: btnH)
             buttons[i].setTitleColor(kExitBtnTitleColor, for: .normal)
             buttons[i].titleLabel?.font = UIFont.systemFont(ofSize: 12)
             buttons[i].addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
             contentWhiteV.addSubview(buttons[i])
+            kContentHeight = buttons[i].frame.maxY + 2 * kMargin + 3 * kDeviceHeightRatio
         }
-        
         if let contentImageV = contentImV {
             contentImageV.frame = CGRect.init(x: 0, y: 0, width: kContentWidth, height: kContentHeight)
             contentImageV.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             contentImageV.backgroundColor = .clear
-            var edgeWH = 10
+            var edgeWH = 20
             if kDeviceHeightRatio > 1 {
                 edgeWH = 30
             }
@@ -156,12 +238,98 @@ extension CFashionAlert {
             contentView.addSubview(contentImageV)
         }
         
+        contentWhiteV.frame.size = CGSize.init(width: kContentWidth - kMargin * 2, height: kContentHeight - kMargin * 2)
+        contentWhiteV.center = CGPoint.init(x: kContentWidth * 0.5, y: kContentHeight * 0.5)
+        contentView.frame = CGRect.init(x: kContentX, y: kContentY, width: kContentWidth, height: kContentHeight)
+        
+    }
+    func resizeBoardAndReLayout() {
+        let mainScreenSize = kDeviceScreenBounds.size
+        self.view.frame.size = mainScreenSize
+        var kContentWidth : CGFloat = kDeviceWidthRatio * 326
+        var kContentHeight : CGFloat = kDeviceHeightRatio * 135
+        if let imageSize = contentImV?.image?.size {
+            kContentWidth = imageSize.width * kDeviceWidthRatio
+            kContentHeight = imageSize.height * kDeviceHeightRatio
+        }
+        let kContentX : CGFloat = (mainScreenSize.width - kContentWidth) * 0.5
+        var kContentY : CGFloat = (mainScreenSize.height - kContentHeight) * 0.5
+        
+        let titleImgW = 33 * kDeviceWidthRatio
+        let titleImgH = 16 * kDeviceHeightRatio
+        let kTitleX = 22 * kDeviceWidthRatio
+        var kTitleY = 59 * kDeviceHeightRatio
+        
+        titleImageV.frame = CGRect.init(x: (kContentWidth - titleImgW)*0.5, y: 17 * kDeviceHeightRatio, width: titleImgW, height: titleImgH)
+        
+        let kTextViewH : CGFloat = 60
+        if subTitleTextView.text.isEmpty == false {
+            subTitleTextView.frame = CGRect.init(x: kTitleX, y: kTitleY, width: kContentWidth - 2*kTitleX, height: kTextViewH)
+            var oriSubRect = subTitleTextView.frame
+            var subSize = subTitleTextView.sizeThatFits(CGSize.init(width: oriSubRect.width, height: CGFloat(MAXFLOAT)))
+            if subSize.height > 200 {
+                subTitleTextView.isScrollEnabled = true
+                subSize.height = 200
+            }
+            oriSubRect.size.height = subSize.height
+            subTitleTextView.frame = oriSubRect
+            kTitleY = subTitleTextView.frame.maxY + 30 * kDeviceHeightRatio
+        } else {
+            kTitleY += 30 * kDeviceHeightRatio
+        }
+        
+        let bViewW = 157 * kDeviceWidthRatio
+        let bViewH = 35 * kDeviceHeightRatio
+        lBtnView.frame = CGRect.init(x: 0, y: kTitleY, width: bViewW, height: bViewH)
+        rBtnView.frame = CGRect.init(x: kContentWidth - bViewW, y: kTitleY, width: bViewW, height: bViewH)
+        if lBtnView.frame.maxY > kContentHeight {
+            kContentHeight = lBtnView.frame.maxY
+        }
+        
+        var btnX : CGFloat = 18 * kDeviceWidthRatio
+        let btnY : CGFloat = 8 * kDeviceHeightRatio
+        let btnW : CGFloat = 29 * kDeviceWidthRatio
+        let btnH : CGFloat = 13 * kDeviceHeightRatio
+        for i in 0 ..< buttonImgVs.count {
+            if buttonImgVs[i].tag == 1 {
+                btnX = bViewW - btnX - btnW
+            }
+            buttonImgVs[i].frame = CGRect.init(x: btnX, y: btnY, width: btnW, height: btnH)
+            if buttonImgVs[i].tag == 0 {
+                lBtnView.addSubview(buttonImgVs[i])
+                lBtnView.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
+            } else {
+                rBtnView.addSubview(buttonImgVs[i])
+                rBtnView.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
+            }
+        }
+        
+        
+        if let contentImageV = contentImV {
+            contentImageV.frame = CGRect.init(x: 0, y: 0, width: kContentWidth, height: kContentHeight)
+            contentImageV.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            contentImageV.backgroundColor = .clear
+            let edgeWH = 10
+            contentImageV.image = contentImageV.image?.stretchableImage(withLeftCapWidth: edgeWH, topCapHeight: 50)
+            contentView.addSubview(contentImageV)
+        }
+        
+        contentView.addSubview(titleImageV)
+        if subTitleTextView.text.isEmpty == false {
+            contentView.addSubview(subTitleTextView)
+        }
+        contentView.addSubview(lBtnView)
+        contentView.addSubview(rBtnView)
+        
+        kContentY = (mainScreenSize.height - kContentHeight) * 0.5
+        contentView.frame = CGRect.init(x: kContentX, y: kContentY, width: kContentWidth, height: kContentHeight)
+        
     }
 
 }
 extension CFashionAlert {
-    open func showFashionToObjc(title: NSString, subTitle: NSString?, leftBtnTitle: NSString?, rightBtnTitle: NSString?, backImageName: NSString, action: ((_ isClickRightBtn: Bool) -> Void)?) {
-        showFashion(title: title as String, subTitle: subTitle as? String, leftBtnTitle: leftBtnTitle as? String, rightBtnTitle: rightBtnTitle as? String, type: .customImg(imageFile: backImageName as String), action: action)
+    func showFashionToObjc(title: NSString, subTitle: NSString?, leftBtnTitle: NSString?, rightBtnTitle: NSString?, backImageName: NSString, action: ((_ isClickRightBtn: Bool) -> Void)?) {
+        showFashion(title: title as String, subTitle: subTitle as String?, leftBtnTitle: leftBtnTitle as String?, rightBtnTitle: rightBtnTitle as String?, type: .customImg(imageFile: backImageName as String), action: action)
     }
     open func showFashion(title: String, subTitle: String?, leftBtnTitle: String?, rightBtnTitle: String?, type: FashionStyle, action: ((_ isClickRightBtn: Bool) -> Void)?) {
         userAction = action
@@ -202,6 +370,26 @@ extension CFashionAlert {
             buttons.append(button)
         }
         resizeAndReLayout()
+        animateAlert()
+    }
+    open func showFashionAmazing(titleType : FashionTitleType, subtitle: NSString?, leftBtnType: FashionBtnType?, rightBtnType: FashionBtnType?, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
+        userAction = action
+        
+        let window: UIWindow = UIApplication.shared.keyWindow!
+        window.addSubview(view)
+        window.bringSubview(toFront: view)
+        view.frame = window.bounds
+        self.setupContentView()
+        self.setupSubtitleTextView()
+        self.setupTitleImage(type: titleType)
+        if let subTitle = subtitle as String? {
+            subTitleTextView.text = subTitle
+        }
+        if let image = backImage {
+            contentImV = UIImageView.init(image: image)
+        }
+        self.setupButtonImage(leftType: leftBtnType, rightType: rightBtnType)
+        resizeBoardAndReLayout()
         animateAlert()
     }
     
