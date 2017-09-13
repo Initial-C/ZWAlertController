@@ -96,7 +96,7 @@
     if (!position){
         //---字符处理
         // 中文字符处理
-        if (self.inputType = ZWTextFieldTypeOnlyChinese) {
+        if (self.inputType == ZWTextFieldTypeOnlyChinese) {
             text = [text filterCharactor:text withRegex:@"[^\u4e00-\u9fa5]"];
             textField.text = text;
         }
