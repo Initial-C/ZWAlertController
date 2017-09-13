@@ -28,6 +28,9 @@
     //因为emoji一直在更新，这个不行
     assert(0);
 }
+-(BOOL) isTextFieldChinese {
+    return [self isTextFieldMatchWithRegularExpression:@"^[\u4e00-\u9fa5]*$"];
+}
 @end
 
 @interface ZWTextField()<UITextFieldDelegate>
@@ -135,6 +138,10 @@
             return [string isTextFieldUnsignedIntValue];
         }
             break;
+        case ZWTextFieldTypeOnlyChinese:{
+            return [string isTextFieldChinese];
+        }
+            break;
         case ZWTextFieldTypeForbidEmoj:{
             if ([[[textField textInputMode] primaryLanguage] isEqualToString:@"emoji"] || ![[textField textInputMode] primaryLanguage]){
                 return NO;
@@ -162,31 +169,62 @@
 }
 
 #pragma mark- UITextField Delegate
-// return NO to disallow editing.
+/*
+ 1- (BOOL)zwTextFieldShouldBeginEditing:(ZWTextField *)textField;        // return NO to disallow editing.
+ 2- (void)zwTextFieldDidBeginEditing:(ZWTextField *)textField;           // became first responder
+ 3- (BOOL)zwTextFieldShouldEndEditing:(ZWTextField *)textField;          // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
+ 4- (void)zwTextFieldDidEndEditing:(ZWTextField *)textField;             // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
+ 5- (void)zwTextFieldDidEndEditing:(ZWTextField *)textField reason:(UITextFieldDidEndEditingReason)reason NS_AVAILABLE_IOS(10_0); // if implemented, called in place of textFieldDidEndEditing:
+ 
+ 6- (BOOL)zwTextField:(ZWTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;   // return NO to not change text
+ 
+ 7- (BOOL)zwTextFieldShouldClear:(ZWTextField *)textField;               // called when clear button pressed. return NO to ignore (no notifications)
+ 8- (BOOL)zwTextFieldShouldReturn:(ZWTextField *)textField;              // called when 'return' key pressed. return NO to ignore.
+ */
+// 1. return NO to disallow editing.
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    return YES;
+    if ([self.zwTFDelegate respondsToSelector:@selector(zwTextFieldShouldBeginEditing:)]) {
+        return [self.zwTFDelegate zwTextFieldShouldBeginEditing:textField];
+    } else {
+        return YES;
+    }
 }
 
-// became first responder
+// 2. became first responder
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     if(_notifyEvent){
         _notifyEvent(self,ZWTextFieldEventBegin);
     }
+    if ([self.zwTFDelegate respondsToSelector:@selector(zwTextFieldDidBeginEditing:)]) {
+        [self.zwTFDelegate zwTextFieldDidBeginEditing:textField];
+    }
 }
 
-// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
+// 3. return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    return YES;
+    if ([self.zwTFDelegate respondsToSelector:@selector(zwTextFieldShouldEndEditing:)]) {
+        return [self.zwTFDelegate zwTextFieldShouldEndEditing:textField];
+    } else {
+        return YES;
+    }
 }
 
-// may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
+// 4. may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     if(_notifyEvent){
         _notifyEvent(self,ZWTextFieldEventFinish);
     }
+    if ([self.zwTFDelegate respondsToSelector:@selector(zwTextFieldDidEndEditing:)]) {
+        [self.zwTFDelegate zwTextFieldDidEndEditing:textField];
+    }
 }
-
-// return NO to not change text
+// 5.
+- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason {
+    if ([self.zwTFDelegate respondsToSelector:@selector(zwTextFieldDidEndEditing:reason:)]) {
+        [self.zwTFDelegate zwTextFieldDidEndEditing:textField reason:reason];
+    }
+}
+// 6. return NO to not change text
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
     NSString * inputString = [textField.text stringByReplacingCharactersInRange:range withString:string];
@@ -201,20 +239,32 @@
     if (_inputCharacter) {
         _inputCharacter(self, string);
     }
-    return YES;
+    if ([self.zwTFDelegate respondsToSelector:@selector(zwTextField:shouldChangeCharactersInRange:replacementString:)]) {
+        return [self.zwTFDelegate zwTextField:textField shouldChangeCharactersInRange:range replacementString:string];
+    } else {
+        return YES;
+    }
 }
 
-// called when clear button pressed. return NO to ignore (no notifications)
+// 7. called when clear button pressed. return NO to ignore (no notifications)
 - (BOOL)textFieldShouldClear:(UITextField *)textField{
-    return YES;
+    if ([self.zwTFDelegate respondsToSelector:@selector(zwTextFieldShouldClear:)]) {
+        return [self.zwTFDelegate zwTextFieldShouldClear:textField];
+    } else {
+        return YES;
+    }
 }
 
-// called when 'return' key pressed. return NO to ignore.
+// 8. called when 'return' key pressed. return NO to ignore.
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if(_isResignKeyboardWhenTapReturn){
         [textField resignFirstResponder];
     }
-    return YES;
+    if ([self.zwTFDelegate respondsToSelector:@selector(zwTextFieldShouldReturn:)]) {
+        return  [self.zwTFDelegate zwTextFieldShouldReturn:textField];
+    } else {
+        return YES;
+    }
 }
 
 @end
