@@ -29,7 +29,15 @@
     assert(0);
 }
 -(BOOL) isTextFieldChinese {
-    return [self isTextFieldMatchWithRegularExpression:@"^[\u4e00-\u9fa5]*$"];
+    return [self isTextFieldMatchWithRegularExpression:@"[^\u4e00-\u9fa5]"];
+}
+//根据正则，过滤特殊字符
+- (NSString *)filterCharactor:(NSString *)string withRegex:(NSString *)regexStr{
+    NSString *searchText = string;
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:&error];
+    NSString *result = [regex stringByReplacingMatchesInString:searchText options:NSMatchingReportCompletion range:NSMakeRange(0, searchText.length) withTemplate:@""];
+    return result;
 }
 @end
 
@@ -87,6 +95,10 @@
     
     if (!position){
         //---字符处理
+        // 中文字符处理
+        if (self.inputType = ZWTextFieldTypeOnlyChinese) {
+            text = [text filterCharactor:text withRegex:@"[^\u4e00-\u9fa5]"];
+        }
         if (text.length > _maxLength){
             //中文和emoj表情存在问题，需要对此进行处理
             NSRange range;
@@ -136,10 +148,6 @@
             break;
         case ZWTextFieldTypeOnlyInt:{
             return [string isTextFieldUnsignedIntValue];
-        }
-            break;
-        case ZWTextFieldTypeOnlyChinese:{
-            return [string isTextFieldChinese];
         }
             break;
         case ZWTextFieldTypeForbidEmoj:{
@@ -228,7 +236,6 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
     NSString * inputString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    
     if(inputString.length > 0){
         BOOL ret = [self validateInputString:inputString textField:textField];
         if (ret && _inputCharacter) {
