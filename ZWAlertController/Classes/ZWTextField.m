@@ -98,6 +98,7 @@
         // 中文字符处理
         if (self.inputType = ZWTextFieldTypeOnlyChinese) {
             text = [text filterCharactor:text withRegex:@"[^\u4e00-\u9fa5]"];
+            textField.text = text;
         }
         if (text.length > _maxLength){
             //中文和emoj表情存在问题，需要对此进行处理
