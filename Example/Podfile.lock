@@ -1,5 +1,5 @@
 PODS:
-  - ZWAlertController (0.0.6)
+  - ZWAlertController (0.0.7.8)
 
 DEPENDENCIES:
   - ZWAlertController (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  ZWAlertController: 98aaf2056bc7ba54de9aeb03320f6d74e44523a3
+  ZWAlertController: 033607cd8769ad4e83139d3b6e9b70d24ea5826c
 
 PODFILE CHECKSUM: f5b1ff9968cfd66fade08272c3b6844c6c8bfe96
 

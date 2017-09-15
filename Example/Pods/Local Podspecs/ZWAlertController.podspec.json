@@ -1,6 +1,6 @@
 {
   "name": "ZWAlertController",
-  "version": "0.0.6",
+  "version": "0.0.7.8",
   "summary": "This a short description of ZWAlertController.",
   "description": "TODO: It is easy to use, support for custom pop tips.",
   "homepage": "https://github.com/Initial-C/ZWAlertController/blob/master/README.md",
@@ -13,13 +13,18 @@
   },
   "source": {
     "git": "https://github.com/Initial-C/ZWAlertController.git",
-    "tag": "0.0.6"
+    "tag": "0.0.7.8"
   },
   "platforms": {
     "ios": "8.0"
   },
   "source_files": "ZWAlertController/Classes/**/*",
   "requires_arc": true,
+  "resource_bundles": {
+    "ZWAlertController": [
+      "ZWAlertController/Assets/*.{png,xib,nib,bundle,mov}"
+    ]
+  },
   "public_header_files": "ZWAlertController/Classes/*.h",
   "frameworks": [
     "UIKit",

@@ -292,7 +292,21 @@ class ViewController : UITableViewController, UITextFieldDelegate {
     
     /// Show the child alert style - CAlert
     func showCAlert(_: IndexPath) {
-        _ = CAlert.getInstance().showAlert("Love you forever")
+//        _ = CAlert.getInstance().showAlert("Love you forever")
+        
+        guard let backImgPath = Bundle.init(for: CFashionAlert.self).path(forResource: "ZWAlertController", ofType: "bundle") else {
+            return
+        }
+        let backImgPaths = backImgPath + "/CFashionSources.bundle"
+        if FileManager.default.fileExists(atPath: backImgPaths) {
+            print("存在图片资源")
+        }
+        CFashionAlert.getFashion().isFashionBoard = true
+        CFashionAlert.getFashion().showFashionAmazing(titleType: .warning, subtitle: "所有歌词将被重置为初始状态，确定吗？", leftBtnType: .cancle, rightBtnType: .confirm, backImage: nil) { (result) in
+            if result {
+                print("点击确定")
+            }
+        }
     }
     // MARK: ZWAlertControllerStyleActionSheet Style Alerts
     

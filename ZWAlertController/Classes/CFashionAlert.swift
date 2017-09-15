@@ -37,16 +37,16 @@ open class CFashionAlert: UIViewController {
     var contentWhiteV = UIView()
     lazy var lBtnView : UIButton = {
         let btnImv = UIButton.init(type: .custom)
-        btnImv.setImage(UIImage.init(named: "gx_left_a"), for: .normal)
-        btnImv.setImage(UIImage.init(named: "gx_left_b"), for: .highlighted)
+        btnImv.setImage(UIImage.init(named: self.getImage("gx_left_a")), for: .normal)
+        btnImv.setImage(UIImage.init(named: self.getImage("gx_left_b")), for: .highlighted)
         btnImv.isHidden = true
         btnImv.tag = 0
         return btnImv
     }()
     lazy var rBtnView : UIButton = {
         let btnImv = UIButton.init(type: .custom)
-        btnImv.setImage(UIImage.init(named: "gx_right_a"), for: .normal)
-        btnImv.setImage(UIImage.init(named: "gx_right_b"), for: .highlighted)
+        btnImv.setImage(UIImage.init(named: self.getImage("gx_right_a")), for: .normal)
+        btnImv.setImage(UIImage.init(named: self.getImage("gx_right_b")), for: .highlighted)
         btnImv.isHidden = true
         btnImv.tag = 1
         return btnImv
@@ -64,7 +64,7 @@ open class CFashionAlert: UIViewController {
 //
 //        // Do any additional setup after loading the view.
 //    }
-    class func getFashion() -> CFashionAlert {
+    class open func getFashion() -> CFashionAlert {
         return cFashion
     }
     init() {
@@ -92,6 +92,18 @@ open class CFashionAlert: UIViewController {
 
 }
 extension CFashionAlert {
+    func getImage(_ name: String) -> String {
+        let podBundle = Bundle.init(for: CFashionAlert.self)
+        guard let bundlePath = podBundle.path(forResource: "ZWAlertController", ofType: "bundle") else {
+            return name
+        }
+        let imgFolder = bundlePath + "/CFashionSources.bundle"
+        guard FileManager.default.fileExists(atPath: imgFolder) else {
+            return name
+        }
+        let imgFilePath = imgFolder + "/\(name).png"
+        return imgFilePath
+    }
     func setupContentView() {
         contentView.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
         contentView.backgroundColor = .clear
@@ -110,13 +122,13 @@ extension CFashionAlert {
         if let type = type {
             switch type {
             case .board:
-                titleStr = "gx_gonggao"
+                titleStr = getImage("gx_gonggao")
                 break
             case .tips:
-                titleStr = "gx_tishi"
+                titleStr = getImage("gx_tishi")
                 break
             case .warning:
-                titleStr = "gx_jingao"
+                titleStr = getImage("gx_jingao")
                 break
             }
         }
@@ -128,7 +140,7 @@ extension CFashionAlert {
             lBtnView.isHidden = false
             switch lType {
             case .cancle:
-                let button: UIImageView = UIImageView.init(image: UIImage.init(named: "gx_quxiao"))
+                let button: UIImageView = UIImageView.init(image: UIImage.init(named: getImage("gx_quxiao")))
                 button.tag = 0
                 buttonImgVs.append(button)
                 break
@@ -144,10 +156,10 @@ extension CFashionAlert {
             var btnImageStr = ""
             switch rType {
             case .confirm:
-                btnImageStr = "gx_queren"
+                btnImageStr = getImage("gx_queren")
                 break
             case .update:
-                btnImageStr = "gx_gx"
+                btnImageStr = getImage("gx_gx")
                 break
             case .other:
                 rBtnView.isHidden = true
@@ -396,6 +408,8 @@ extension CFashionAlert {
         }
         if let image = backImage {
             contentImV = UIImageView.init(image: image)
+        } else {
+            contentImV = UIImageView.init(image: UIImage.init(named: getImage("gx_kuang")))
         }
         self.setupButtonImage(leftType: leftBtnType, rightType: rightBtnType)
         resizeBoardAndReLayout()

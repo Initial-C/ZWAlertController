@@ -7,7 +7,7 @@
 #
 Pod::Spec.new do |s|
 s.name             = 'ZWAlertController'
-s.version          = '0.0.7.6'
+s.version          = '0.0.7.8'
 s.summary          = 'This a short description of ZWAlertController.'
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -27,9 +27,10 @@ s.ios.deployment_target = '8.0'
 s.source_files = 'ZWAlertController/Classes/**/*'
 s.requires_arc = true
 
-# s.resource_bundles = {
-#   'CAlert' => ['CAlert/Assets/*.png']
-# }
+# s.resources = 'ZWAlertController/Assets/*.{png,xib,nib,bundle,mov}'
+s.resource_bundles = {
+    'ZWAlertController' => ['ZWAlertController/Assets/*.{png,xib,nib,bundle,mov}']
+}
 s.public_header_files = 'ZWAlertController/Classes/*.h'
 s.frameworks = 'UIKit', 'QuartzCore'
 # s.dependency 'AFNetworking', '~> 2.3'

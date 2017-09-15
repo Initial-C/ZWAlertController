@@ -9,20 +9,22 @@
 /* Begin PBXBuildFile section */
 		26AE638C719D625F47C8DCF15D2CBF18 /* Pods-CAlert_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 38B52F6EB02E2D52C51910ACF9A0C102 /* Pods-CAlert_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D481D0E1D4B7B63396725BB350F7947 /* Pods-CAlert_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D04549DD0E865F9C8312B31EAD04CD2 /* Pods-CAlert_Example-dummy.m */; };
-		51CF86B5B69133850236F84DBD14E5A7 /* ZWAlertController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FDAFDC104A60A2152A2674F041DC7922 /* ZWAlertController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		553DB893F7AA357EE4C878C35F80A38F /* CAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE776CE321259DC1467FEB311E2B231 /* CAlert.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		5EA7A4FD24EF8810768FBB17BE5F51FC /* ZWTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 403F68DF28564934CDD42FC0C66D0D47 /* ZWTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		51CF86B5B69133850236F84DBD14E5A7 /* ZWAlertController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9506730122B1A0AE5668B01B72E5A99D /* ZWAlertController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		553DB893F7AA357EE4C878C35F80A38F /* CAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B233D7E73A368343006E4D1ED59E7603 /* CAlert.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5EA7A4FD24EF8810768FBB17BE5F51FC /* ZWTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 7836D3BE18415D49D75A6BEDA3576ED4 /* ZWTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6ECFA54199EC6AA4B142799CC745B85C /* Pods-CAlert_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 366D77205D108D11F6CB26FDE8E6C462 /* Pods-CAlert_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		71A13B41E9D5D8443608C45DDAF62771 /* ZWAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAFAA24A19771A4CCCCEC2FC3BED6D7 /* ZWAlertController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		71A13B41E9D5D8443608C45DDAF62771 /* ZWAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742AA884C1A7051460581C49AA563743 /* ZWAlertController.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		73BF191236C0E29BFA6F1704A2795A96 /* CFashionSources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A3D561F9247D6AED19C936BB2D41EEC5 /* CFashionSources.bundle */; };
 		7B449A09332B5F465DBF343379E20964 /* Pods-CAlert_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C08A437E5905CBDF3244BA5BE78CAD5 /* Pods-CAlert_Tests-dummy.m */; };
 		7C252E55FB5F72B71EF5591D918A9C73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF675A168132FD52AED630F977FE906 /* UIKit.framework */; };
-		7D9AEAE8CB0FC7CC24343547B4464677 /* ZWAlertDemo-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = D9634960BF5259A6D348AA713A46CD9E /* ZWAlertDemo-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7D9AEAE8CB0FC7CC24343547B4464677 /* ZWAlertDemo-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C865D67764674D9CAD8AB5AE60B4311 /* ZWAlertDemo-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		858816A9B125E3CEB3499FD7E1DF7255 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC32878090C4B2B93381956161EC0930 /* Foundation.framework */; };
 		88596ACE4C159969CAB6893E037082B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC32878090C4B2B93381956161EC0930 /* Foundation.framework */; };
+		9892AA14D4486628EA3B3CC59A6868F6 /* ZWAlertController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D4F5F6CDF5D17DD8726B88EF8694723 /* ZWAlertController.bundle */; };
 		A7DFDD971ADE6C6F90B3E4775DA7D6B3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0203FCF2E38F9E0B8C4E69853543A3E /* QuartzCore.framework */; };
-		CDD10E0A000894070CE159593B7987CE /* ZWTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1171BCF51DA70DEFAC7A0AB26A825 /* ZWTextField.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		D1E9CFFB99E20671D5345C55DB5821D2 /* ZWAlertController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7103250B632994E7BFFDC6FAA23D648A /* ZWAlertController-dummy.m */; };
-		EAA65E5E8594F73016A9393BD5E24F99 /* CFashionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15044AC24AE06C06CA1F542830E6B00A /* CFashionAlert.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CDD10E0A000894070CE159593B7987CE /* ZWTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5861CBD5F9259B467E9EB160450E43 /* ZWTextField.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D1E9CFFB99E20671D5345C55DB5821D2 /* ZWAlertController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 010DCE59B701DBBC435300CF20F3AAC6 /* ZWAlertController-dummy.m */; };
+		EAA65E5E8594F73016A9393BD5E24F99 /* CFashionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE8B503E8914E9D2C3B2002C4DFCD3 /* CFashionAlert.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EAE9787D6B45408EBEED7F19F41789E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC32878090C4B2B93381956161EC0930 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,48 +36,58 @@
 			remoteGlobalIDString = 6DA85CD86A02FFB79A91BAC7A01C842B;
 			remoteInfo = ZWAlertController;
 		};
+		6B255F5D57E9EE6DB80803A8578254CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9BCA65DB8DDF0CF23E59A38F2FF4277;
+			remoteInfo = "ZWAlertController-ZWAlertController";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		001711ADCFD2B3BEB314491A7D1784EB /* ZWAlertController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZWAlertController.framework; path = ZWAlertController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		010DCE59B701DBBC435300CF20F3AAC6 /* ZWAlertController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZWAlertController-dummy.m"; sourceTree = "<group>"; };
+		0132E52076F4E80BF7A8ACD3DED8CAAF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C865D67764674D9CAD8AB5AE60B4311 /* ZWAlertDemo-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZWAlertDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		10F9E8368D98D79D24CE0E8DAD24EC4A /* ZWAlertController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZWAlertController.xcconfig; sourceTree = "<group>"; };
 		115DCE3EE6AB811AB74524D87051C036 /* Pods-CAlert_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CAlert_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		15044AC24AE06C06CA1F542830E6B00A /* CFashionAlert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CFashionAlert.swift; sourceTree = "<group>"; };
 		2CCE6DF7EDDC435B0F105021982D66C1 /* Pods-CAlert_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CAlert_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2FA1171BCF51DA70DEFAC7A0AB26A825 /* ZWTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ZWTextField.m; sourceTree = "<group>"; };
+		2D4F5F6CDF5D17DD8726B88EF8694723 /* ZWAlertController.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = ZWAlertController.bundle; path = ZWAlertController.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		366D77205D108D11F6CB26FDE8E6C462 /* Pods-CAlert_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CAlert_Example-umbrella.h"; sourceTree = "<group>"; };
 		38B52F6EB02E2D52C51910ACF9A0C102 /* Pods-CAlert_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CAlert_Tests-umbrella.h"; sourceTree = "<group>"; };
-		403F68DF28564934CDD42FC0C66D0D47 /* ZWTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ZWTextField.h; sourceTree = "<group>"; };
-		4604F6A9EBC3E6C7124F47A1223AB9C0 /* ZWAlertController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZWAlertController-prefix.pch"; sourceTree = "<group>"; };
+		3AE01FEB24C5164E11CC3F0ED85C5BEC /* ZWAlertController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZWAlertController.framework; path = ZWAlertController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44BD5EA7DE8503CE7D0A9645BDE9B5C5 /* Pods_CAlert_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CAlert_Example.framework; path = "Pods-CAlert_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF675A168132FD52AED630F977FE906 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		64D198286B05B890031721126036DA46 /* Pods-CAlert_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CAlert_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		6C17B0FABF8DEBD3BB9EDB0FA605D74D /* ZWAlertController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ZWAlertController.modulemap; sourceTree = "<group>"; };
-		7103250B632994E7BFFDC6FAA23D648A /* ZWAlertController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZWAlertController-dummy.m"; sourceTree = "<group>"; };
+		68BE8B503E8914E9D2C3B2002C4DFCD3 /* CFashionAlert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CFashionAlert.swift; sourceTree = "<group>"; };
+		742AA884C1A7051460581C49AA563743 /* ZWAlertController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZWAlertController.swift; sourceTree = "<group>"; };
 		7561D7B892A285BFECC7A6532BC35A88 /* Pods-CAlert_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CAlert_Example.release.xcconfig"; sourceTree = "<group>"; };
-		7A9F0ABD66327F5B770E76FB02BDCBA5 /* Pods_CAlert_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CAlert_Example.framework; path = "Pods-CAlert_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7836D3BE18415D49D75A6BEDA3576ED4 /* ZWTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ZWTextField.h; sourceTree = "<group>"; };
 		7D04549DD0E865F9C8312B31EAD04CD2 /* Pods-CAlert_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CAlert_Example-dummy.m"; sourceTree = "<group>"; };
 		8FC566388454BC71930DC8E5A3EB4368 /* Pods-CAlert_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CAlert_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9506730122B1A0AE5668B01B72E5A99D /* ZWAlertController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZWAlertController-umbrella.h"; sourceTree = "<group>"; };
 		951AF1890FFE22EE7D9DC6E68354F04E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C08A437E5905CBDF3244BA5BE78CAD5 /* Pods-CAlert_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CAlert_Tests-dummy.m"; sourceTree = "<group>"; };
-		A2BF6D722F5FE5634ED92FF1F99F54ED /* Pods_CAlert_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CAlert_Tests.framework; path = "Pods-CAlert_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		ACE776CE321259DC1467FEB311E2B231 /* CAlert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CAlert.swift; sourceTree = "<group>"; };
-		AE8E65B8CBCE91D251AA14180E614D43 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BCB4FEEF1CAE28EB0B4A5858C655E36C /* ZWAlertController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZWAlertController.xcconfig; sourceTree = "<group>"; };
+		A3D561F9247D6AED19C936BB2D41EEC5 /* CFashionSources.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = CFashionSources.bundle; sourceTree = "<group>"; };
+		AA5861CBD5F9259B467E9EB160450E43 /* ZWTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ZWTextField.m; sourceTree = "<group>"; };
+		B233D7E73A368343006E4D1ED59E7603 /* CAlert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CAlert.swift; sourceTree = "<group>"; };
+		C06161616746C9BBEF1A3E0B540ACB77 /* Pods_CAlert_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CAlert_Tests.framework; path = "Pods-CAlert_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C62D4623D60BD28563BF078F1DAE2F5B /* Pods-CAlert_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CAlert_Tests-resources.sh"; sourceTree = "<group>"; };
-		CDAFAA24A19771A4CCCCEC2FC3BED6D7 /* ZWAlertController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZWAlertController.swift; sourceTree = "<group>"; };
 		CDD9EB97C4FEB7752778A847E3053236 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9634960BF5259A6D348AA713A46CD9E /* ZWAlertDemo-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZWAlertDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		D7194B723527B336328AD27F647FFCE4 /* ZWAlertController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZWAlertController-prefix.pch"; sourceTree = "<group>"; };
 		E0203FCF2E38F9E0B8C4E69853543A3E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		E3842711719B30A0E050C9501717FE6B /* Pods-CAlert_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-CAlert_Tests.modulemap"; sourceTree = "<group>"; };
 		E44475B65981C48C97E91B7E2E4A6E5D /* Pods-CAlert_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CAlert_Example-frameworks.sh"; sourceTree = "<group>"; };
 		EC32878090C4B2B93381956161EC0930 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		ED5A50131F47469BDD2F21388D152CC4 /* ResourceBundle-ZWAlertController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-ZWAlertController-Info.plist"; sourceTree = "<group>"; };
 		EF0089DD2BA061384E1DF88CE6A8D569 /* Pods-CAlert_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CAlert_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		F423D202F19C774CA5530D9521DC9CED /* Pods-CAlert_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CAlert_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		F5626E97EF8D4984652E43B8A6671C32 /* Pods-CAlert_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-CAlert_Example.modulemap"; sourceTree = "<group>"; };
 		F99BB1407C4C39026E666F0D01943FE2 /* Pods-CAlert_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CAlert_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FAC71081BD916652ADB4D167F30C0D3F /* Pods-CAlert_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CAlert_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		FD64FDA560391CE116FBE223639ADFA2 /* Pods-CAlert_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CAlert_Example-resources.sh"; sourceTree = "<group>"; };
-		FDAFDC104A60A2152A2674F041DC7922 /* ZWAlertController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZWAlertController-umbrella.h"; sourceTree = "<group>"; };
+		FFF1F2E5F834BC3E1BC21ACEACA13AF9 /* ZWAlertController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ZWAlertController.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +106,13 @@
 				EAE9787D6B45408EBEED7F19F41789E5 /* Foundation.framework in Frameworks */,
 				A7DFDD971ADE6C6F90B3E4775DA7D6B3 /* QuartzCore.framework in Frameworks */,
 				7C252E55FB5F72B71EF5591D918A9C73 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F503A0BE2A7AE6F7612705A7A6F6E38E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,14 +153,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		16A83F22A57689D15045186FE1767BB3 /* ZWAlertController */ = {
+		1BB92466A0AEBC1F5AFA0938CB685668 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				D6804D7243D0A45EC20F2E020727A68C /* Support Files */,
-				B0312F8667BCF55D5C1D5FB2958CEF8C /* ZWAlertController */,
+				A3D561F9247D6AED19C936BB2D41EEC5 /* CFashionSources.bundle */,
 			);
-			name = ZWAlertController;
-			path = ../..;
+			name = Assets;
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		211BFB394C539DF6A611E5946E5CE192 /* Pods-CAlert_Example */ = {
@@ -162,62 +180,89 @@
 			path = "Target Support Files/Pods-CAlert_Example";
 			sourceTree = "<group>";
 		};
-		45681F765038014F32E0C821CABC1BC0 /* Classes */ = {
+		407EE64F6E3A4BEEDED49E7D6EA84F79 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				ACE776CE321259DC1467FEB311E2B231 /* CAlert.swift */,
-				15044AC24AE06C06CA1F542830E6B00A /* CFashionAlert.swift */,
-				CDAFAA24A19771A4CCCCEC2FC3BED6D7 /* ZWAlertController.swift */,
-				D9634960BF5259A6D348AA713A46CD9E /* ZWAlertDemo-Bridging-Header.h */,
-				403F68DF28564934CDD42FC0C66D0D47 /* ZWTextField.h */,
-				2FA1171BCF51DA70DEFAC7A0AB26A825 /* ZWTextField.m */,
+				0132E52076F4E80BF7A8ACD3DED8CAAF /* Info.plist */,
+				ED5A50131F47469BDD2F21388D152CC4 /* ResourceBundle-ZWAlertController-Info.plist */,
+				FFF1F2E5F834BC3E1BC21ACEACA13AF9 /* ZWAlertController.modulemap */,
+				10F9E8368D98D79D24CE0E8DAD24EC4A /* ZWAlertController.xcconfig */,
+				010DCE59B701DBBC435300CF20F3AAC6 /* ZWAlertController-dummy.m */,
+				D7194B723527B336328AD27F647FFCE4 /* ZWAlertController-prefix.pch */,
+				9506730122B1A0AE5668B01B72E5A99D /* ZWAlertController-umbrella.h */,
 			);
-			name = Classes;
-			path = Classes;
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/ZWAlertController";
 			sourceTree = "<group>";
 		};
-		4CC244D67798CDA13F10A5A9F2C22C49 /* Products */ = {
+		6A0218586FBD415028D2261C28E8F67A /* ZWAlertController */ = {
 			isa = PBXGroup;
 			children = (
-				7A9F0ABD66327F5B770E76FB02BDCBA5 /* Pods_CAlert_Example.framework */,
-				A2BF6D722F5FE5634ED92FF1F99F54ED /* Pods_CAlert_Tests.framework */,
-				001711ADCFD2B3BEB314491A7D1784EB /* ZWAlertController.framework */,
+				9EFB4AED87A249F6CFB054A03F2F962E /* Resources */,
+				407EE64F6E3A4BEEDED49E7D6EA84F79 /* Support Files */,
+				8254642B306266E70871F3D8DF96B848 /* ZWAlertController */,
 			);
-			name = Products;
+			name = ZWAlertController;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				E4F683FFFA3F02259F9B66A17503093F /* Development Pods */,
+				9211EDDB200EC67F2F54EC155AF9CFF8 /* Development Pods */,
 				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
-				4CC244D67798CDA13F10A5A9F2C22C49 /* Products */,
+				F703B2707BC40A4C4E1D5C8AC278885E /* Products */,
 				E27FE173878F98058079356F3EA94D2B /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		B0312F8667BCF55D5C1D5FB2958CEF8C /* ZWAlertController */ = {
+		8254642B306266E70871F3D8DF96B848 /* ZWAlertController */ = {
 			isa = PBXGroup;
 			children = (
-				45681F765038014F32E0C821CABC1BC0 /* Classes */,
+				A87E1A8FA78BB8807E19D845474196D0 /* Classes */,
 			);
 			name = ZWAlertController;
 			path = ZWAlertController;
 			sourceTree = "<group>";
 		};
-		D6804D7243D0A45EC20F2E020727A68C /* Support Files */ = {
+		9211EDDB200EC67F2F54EC155AF9CFF8 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AE8E65B8CBCE91D251AA14180E614D43 /* Info.plist */,
-				6C17B0FABF8DEBD3BB9EDB0FA605D74D /* ZWAlertController.modulemap */,
-				BCB4FEEF1CAE28EB0B4A5858C655E36C /* ZWAlertController.xcconfig */,
-				7103250B632994E7BFFDC6FAA23D648A /* ZWAlertController-dummy.m */,
-				4604F6A9EBC3E6C7124F47A1223AB9C0 /* ZWAlertController-prefix.pch */,
-				FDAFDC104A60A2152A2674F041DC7922 /* ZWAlertController-umbrella.h */,
+				6A0218586FBD415028D2261C28E8F67A /* ZWAlertController */,
 			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/ZWAlertController";
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		9EFB4AED87A249F6CFB054A03F2F962E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C0FB7761946B758FAB0AC355F38F2A36 /* ZWAlertController */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A87E1A8FA78BB8807E19D845474196D0 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B233D7E73A368343006E4D1ED59E7603 /* CAlert.swift */,
+				68BE8B503E8914E9D2C3B2002C4DFCD3 /* CFashionAlert.swift */,
+				742AA884C1A7051460581C49AA563743 /* ZWAlertController.swift */,
+				0C865D67764674D9CAD8AB5AE60B4311 /* ZWAlertDemo-Bridging-Header.h */,
+				7836D3BE18415D49D75A6BEDA3576ED4 /* ZWTextField.h */,
+				AA5861CBD5F9259B467E9EB160450E43 /* ZWTextField.m */,
+			);
+			name = Classes;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C0FB7761946B758FAB0AC355F38F2A36 /* ZWAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				1BB92466A0AEBC1F5AFA0938CB685668 /* Assets */,
+			);
+			name = ZWAlertController;
+			path = ZWAlertController;
 			sourceTree = "<group>";
 		};
 		E27FE173878F98058079356F3EA94D2B /* Targets Support Files */ = {
@@ -229,14 +274,6 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		E4F683FFFA3F02259F9B66A17503093F /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				16A83F22A57689D15045186FE1767BB3 /* ZWAlertController */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 		E5E9260013FA223D81B907D9285F6EA1 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +282,17 @@
 				5BF675A168132FD52AED630F977FE906 /* UIKit.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		F703B2707BC40A4C4E1D5C8AC278885E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				44BD5EA7DE8503CE7D0A9645BDE9B5C5 /* Pods_CAlert_Example.framework */,
+				C06161616746C9BBEF1A3E0B540ACB77 /* Pods_CAlert_Tests.framework */,
+				2D4F5F6CDF5D17DD8726B88EF8694723 /* ZWAlertController.bundle */,
+				3AE01FEB24C5164E11CC3F0ED85C5BEC /* ZWAlertController.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,7 +341,7 @@
 			);
 			name = "Pods-CAlert_Tests";
 			productName = "Pods-CAlert_Tests";
-			productReference = A2BF6D722F5FE5634ED92FF1F99F54ED /* Pods_CAlert_Tests.framework */;
+			productReference = C06161616746C9BBEF1A3E0B540ACB77 /* Pods_CAlert_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		6AA2412688196A1E443592B2B6814836 /* Pods-CAlert_Example */ = {
@@ -311,7 +359,7 @@
 			);
 			name = "Pods-CAlert_Example";
 			productName = "Pods-CAlert_Example";
-			productReference = 7A9F0ABD66327F5B770E76FB02BDCBA5 /* Pods_CAlert_Example.framework */;
+			productReference = 44BD5EA7DE8503CE7D0A9645BDE9B5C5 /* Pods_CAlert_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		6DA85CD86A02FFB79A91BAC7A01C842B /* ZWAlertController */ = {
@@ -320,16 +368,35 @@
 			buildPhases = (
 				C3E1ADC978393A1C5A1EA79BB1586C6A /* Sources */,
 				8DCC042AADBC97BBA87BD2AD9C7D9969 /* Frameworks */,
+				C054EB2F443904FC7F1AA487A706A1E6 /* Resources */,
 				1B503834DBA53BFFADAC8146267D1BD1 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3DAC6A8F0A1B17362E1B477D71A43C9B /* PBXTargetDependency */,
 			);
 			name = ZWAlertController;
 			productName = ZWAlertController;
-			productReference = 001711ADCFD2B3BEB314491A7D1784EB /* ZWAlertController.framework */;
+			productReference = 3AE01FEB24C5164E11CC3F0ED85C5BEC /* ZWAlertController.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		E9BCA65DB8DDF0CF23E59A38F2FF4277 /* ZWAlertController-ZWAlertController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAC015C7B5A69A78B0EAC4D2507E05C0 /* Build configuration list for PBXNativeTarget "ZWAlertController-ZWAlertController" */;
+			buildPhases = (
+				8C063F15FB6EB2D04105C6A4B3D1A901 /* Sources */,
+				F503A0BE2A7AE6F7612705A7A6F6E38E /* Frameworks */,
+				6CA05184C2EB48629E99114D9E7E1F6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ZWAlertController-ZWAlertController";
+			productName = "ZWAlertController-ZWAlertController";
+			productReference = 2D4F5F6CDF5D17DD8726B88EF8694723 /* ZWAlertController.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -348,18 +415,45 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 4CC244D67798CDA13F10A5A9F2C22C49 /* Products */;
+			productRefGroup = F703B2707BC40A4C4E1D5C8AC278885E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				6AA2412688196A1E443592B2B6814836 /* Pods-CAlert_Example */,
 				2F0B38306F00620D001D1241CBE7C516 /* Pods-CAlert_Tests */,
 				6DA85CD86A02FFB79A91BAC7A01C842B /* ZWAlertController */,
+				E9BCA65DB8DDF0CF23E59A38F2FF4277 /* ZWAlertController-ZWAlertController */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		6CA05184C2EB48629E99114D9E7E1F6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73BF191236C0E29BFA6F1704A2795A96 /* CFashionSources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C054EB2F443904FC7F1AA487A706A1E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9892AA14D4486628EA3B3CC59A6868F6 /* ZWAlertController.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		8C063F15FB6EB2D04105C6A4B3D1A901 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3E1ADC978393A1C5A1EA79BB1586C6A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -391,6 +485,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3DAC6A8F0A1B17362E1B477D71A43C9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ZWAlertController-ZWAlertController";
+			target = E9BCA65DB8DDF0CF23E59A38F2FF4277 /* ZWAlertController-ZWAlertController */;
+			targetProxy = 6B255F5D57E9EE6DB80803A8578254CD /* PBXContainerItemProxy */;
+		};
 		ADCBA9D5E7F66276B73F9E337CFBDEFA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ZWAlertController;
@@ -484,9 +584,26 @@
 			};
 			name = Release;
 		};
+		86A95D3D6362843BC95A54FF67CA22AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10F9E8368D98D79D24CE0E8DAD24EC4A /* ZWAlertController.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ZWAlertController";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/ZWAlertController/ResourceBundle-ZWAlertController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = ZWAlertController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
 		8F37E424F17F249493FD89E6DF9E4D6F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCB4FEEF1CAE28EB0B4A5858C655E36C /* ZWAlertController.xcconfig */;
+			baseConfigurationReference = 10F9E8368D98D79D24CE0E8DAD24EC4A /* ZWAlertController.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -553,7 +670,7 @@
 		};
 		A9BB7FA58B385F9AC799FDD79FAA7286 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCB4FEEF1CAE28EB0B4A5858C655E36C /* ZWAlertController.xcconfig */;
+			baseConfigurationReference = 10F9E8368D98D79D24CE0E8DAD24EC4A /* ZWAlertController.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -583,6 +700,23 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		B55BB6F848489570C9BCFA20FCDA70B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10F9E8368D98D79D24CE0E8DAD24EC4A /* ZWAlertController.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ZWAlertController";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/ZWAlertController/ResourceBundle-ZWAlertController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = ZWAlertController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
 		};
 		B6CE33A5627857FB7C71030D8A7E1D0A /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -725,6 +859,15 @@
 			buildConfigurations = (
 				A9BB7FA58B385F9AC799FDD79FAA7286 /* Debug */,
 				8F37E424F17F249493FD89E6DF9E4D6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAC015C7B5A69A78B0EAC4D2507E05C0 /* Build configuration list for PBXNativeTarget "ZWAlertController-ZWAlertController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86A95D3D6362843BC95A54FF67CA22AB /* Debug */,
+				B55BB6F848489570C9BCFA20FCDA70B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
