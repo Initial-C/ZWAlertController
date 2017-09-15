@@ -29,7 +29,7 @@
     assert(0);
 }
 -(BOOL) isTextFieldChinese {
-    return [self isTextFieldMatchWithRegularExpression:@"[^\u4e00-\u9fa5\\s]"];
+    return [self isTextFieldMatchWithRegularExpression:@"[^\u4e00-\u9fa5]"];
 }
 //根据正则，过滤特殊字符
 - (NSString *)filterCharactor:(NSString *)string withRegex:(NSString *)regexStr{
@@ -97,7 +97,7 @@
         //---字符处理
         // 中文字符处理
         if (self.inputType == ZWTextFieldTypeOnlyChinese) {
-            text = [text filterCharactor:text withRegex:@"[^\u4e00-\u9fa5\\s]"];
+            text = [text filterCharactor:text withRegex:@"[^\u4e00-\u9fa5]"];
             textField.text = text;
         }
         if (text.length > _maxLength){
