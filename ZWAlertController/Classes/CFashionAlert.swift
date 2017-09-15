@@ -19,7 +19,7 @@ public enum FashionBtnType : NSInteger {
     case confirm, cancle, update, other
 }
 let cFashion = CFashionAlert()
-class CFashionAlert: UIViewController {
+open class CFashionAlert: UIViewController {
     
     public var isFashionBoard : Bool = false
     let kBackgroundAlpha : CGFloat = 0.7
@@ -77,7 +77,7 @@ class CFashionAlert: UIViewController {
         strongSelf = self
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
