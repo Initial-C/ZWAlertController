@@ -416,7 +416,7 @@ extension CFashionAlert {
         animateAlert()
     }
     
-    func pressed(_ sender: UIButton!) {
+    @objc func pressed(_ sender: UIButton!) {
         if sender.tag == 0 {
             self.closeAlert(sender.tag)
         } else {
