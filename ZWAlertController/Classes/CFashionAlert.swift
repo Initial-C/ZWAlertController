@@ -21,7 +21,7 @@ public enum FashionBtnType : NSInteger {
 let cFashion = CFashionAlert()
 open class CFashionAlert: UIViewController {
     
-    public var isFashionBoard : Bool = false
+    @objc public var isFashionBoard : Bool = false
     let kBackgroundAlpha : CGFloat = 0.7
     let kFashionFont = "PingFang SC"
     let kExitTitleColor = UIColor.colorForRGB(0xFFA500)
@@ -64,7 +64,7 @@ open class CFashionAlert: UIViewController {
 //
 //        // Do any additional setup after loading the view.
 //    }
-    class open func getFashion() -> CFashionAlert {
+    @objc class open func getFashion() -> CFashionAlert {
         return cFashion
     }
     init() {
@@ -346,7 +346,7 @@ extension CFashionAlert {
 
 }
 extension CFashionAlert {
-    func showFashionToObjc(title: NSString, subTitle: NSString?, leftBtnTitle: NSString?, rightBtnTitle: NSString?, backImageName: NSString, action: ((_ isClickRightBtn: Bool) -> Void)?) {
+    @objc func showFashionToObjc(title: NSString, subTitle: NSString?, leftBtnTitle: NSString?, rightBtnTitle: NSString?, backImageName: NSString, action: ((_ isClickRightBtn: Bool) -> Void)?) {
         showFashion(title: title as String, subTitle: subTitle as String?, leftBtnTitle: leftBtnTitle as String?, rightBtnTitle: rightBtnTitle as String?, type: .customImg(imageFile: backImageName as String), action: action)
     }
     open func showFashion(title: String, subTitle: String?, leftBtnTitle: String?, rightBtnTitle: String?, type: FashionStyle, action: ((_ isClickRightBtn: Bool) -> Void)?) {
@@ -390,7 +390,7 @@ extension CFashionAlert {
         resizeAndReLayout()
         animateAlert()
     }
-    func showFashionAmazingToObjc(titleType : NSInteger, subtitle: NSString?, leftBtnType: NSInteger, rightBtnType: NSInteger, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
+    @objc func showFashionAmazingToObjc(titleType : NSInteger, subtitle: NSString?, leftBtnType: NSInteger, rightBtnType: NSInteger, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
         showFashionAmazing(titleType: FashionTitleType(rawValue: titleType)!, subtitle: subtitle, leftBtnType: FashionBtnType(rawValue: leftBtnType), rightBtnType: FashionBtnType(rawValue: rightBtnType), backImage: backImage, action: action)
     }
     open func showFashionAmazing(titleType : FashionTitleType, subtitle: NSString?, leftBtnType: FashionBtnType?, rightBtnType: FashionBtnType?, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
