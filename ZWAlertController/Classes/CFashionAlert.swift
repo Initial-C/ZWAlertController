@@ -7,6 +7,7 @@
 //
 import Foundation
 import UIKit
+import WebKit
 
 public enum FashionStyle {
     case success,warning,exit,none
@@ -21,7 +22,7 @@ public enum FashionBtnType : NSInteger {
 let cFashion = CFashionAlert()
 open class CFashionAlert: UIViewController {
     
-    @objc public var isFashionBoard : Bool = false
+    public var isFashionBoard : Bool = false
     let kBackgroundAlpha : CGFloat = 0.7
     let kFashionFont = "PingFang SC"
     let kExitTitleColor = UIColor.colorForRGB(0xFFA500)
@@ -35,6 +36,7 @@ open class CFashionAlert: UIViewController {
     var userAction:((_ isClickRightBtn : Bool) -> Void)? = nil
     var contentView = UIView()
     var contentWhiteV = UIView()
+    var webView = WKWebView()
     lazy var lBtnView : UIButton = {
         let btnImv = UIButton.init(type: .custom)
         btnImv.setImage(UIImage.init(named: self.getImage("gx_left_a")), for: .normal)
@@ -55,7 +57,7 @@ open class CFashionAlert: UIViewController {
     var lineView = UIView()
     var contentImV : UIImageView?
     var fashionTitle : UILabel = UILabel()
-    var subTitleTextView = UITextView()
+    var subTitleTextView = SubTextView()
     var buttons = [UIButton]()
     var buttonImgVs = [UIImageView]()
     var strongSelf:CFashionAlert?
@@ -64,7 +66,7 @@ open class CFashionAlert: UIViewController {
 //
 //        // Do any additional setup after loading the view.
 //    }
-    @objc class open func getFashion() -> CFashionAlert {
+    class open func getFashion() -> CFashionAlert {
         return cFashion
     }
     init() {
@@ -110,6 +112,23 @@ extension CFashionAlert {
         contentView.layer.borderColor = UIColor.colorForRGB(0xCCCCCC).cgColor
         view.addSubview(contentView)
     }
+    func setupWebView(_ urlStr : String?) {
+        let config = WKWebViewConfiguration.init()
+        config.preferences = WKPreferences()
+        config.processPool = WKProcessPool()
+        config.preferences.javaScriptCanOpenWindowsAutomatically = false
+        config.suppressesIncrementalRendering = true
+        webView = WKWebView.init(frame: CGRect.zero, configuration: config)
+        webView.isOpaque = false
+        webView.uiDelegate = nil
+        webView.navigationDelegate = nil
+        webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal
+        if let urlStr = urlStr {
+            if urlStr.isEmpty == false {
+                webView.load(URLRequest.init(url: URL(string: urlStr)!))
+            }
+        }
+    }
     func setupTitleLabel() {
         fashionTitle.text = ""
         fashionTitle.numberOfLines = 1
@@ -141,7 +160,7 @@ extension CFashionAlert {
             switch lType {
             case .cancle:
                 let button: UIImageView = UIImageView.init(image: UIImage.init(named: getImage("gx_quxiao")))
-                button.tag = 0
+                button.tag = 226
                 buttonImgVs.append(button)
                 break
             case .other:
@@ -168,7 +187,7 @@ extension CFashionAlert {
                 break
             }
             let button: UIImageView = UIImageView.init(image: UIImage.init(named: btnImageStr))
-            button.tag = 1
+            button.tag = 227
             buttonImgVs.append(button)
         }
     }
@@ -277,6 +296,7 @@ extension CFashionAlert {
         let titleImgH = 16 * kDeviceHeightRatio
         let kTitleX = 22 * kDeviceWidthRatio
         var kTitleY = 59 * kDeviceHeightRatio
+        let webH = 240 * kDeviceHeightRatio
         
         titleImageV.frame = CGRect.init(x: (kContentWidth - titleImgW)*0.5, y: 17 * kDeviceHeightRatio, width: titleImgW, height: titleImgH)
         
@@ -292,6 +312,9 @@ extension CFashionAlert {
             oriSubRect.size.height = subSize.height
             subTitleTextView.frame = oriSubRect
             kTitleY = subTitleTextView.frame.maxY + 30 * kDeviceHeightRatio
+        } else if webView.url?.description.isEmpty == false {
+            webView.frame = CGRect.init(x: kTitleX, y: kTitleY, width: kContentWidth - 2*kTitleX, height: webH)
+                kTitleY = webView.frame.maxY + 15 * kDeviceHeightRatio
         } else {
             kTitleY += 30 * kDeviceHeightRatio
         }
@@ -309,11 +332,11 @@ extension CFashionAlert {
         let btnW : CGFloat = 29 * kDeviceWidthRatio
         let btnH : CGFloat = 13 * kDeviceHeightRatio
         for i in 0 ..< buttonImgVs.count {
-            if buttonImgVs[i].tag == 1 {
+            if buttonImgVs[i].tag == 227 {
                 btnX = bViewW - btnX - btnW
             }
             buttonImgVs[i].frame = CGRect.init(x: btnX, y: btnY, width: btnW, height: btnH)
-            if buttonImgVs[i].tag == 0 {
+            if buttonImgVs[i].tag == 226 {
                 lBtnView.addSubview(buttonImgVs[i])
                 lBtnView.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
             } else {
@@ -327,7 +350,7 @@ extension CFashionAlert {
             contentImageV.frame = CGRect.init(x: 0, y: 0, width: kContentWidth, height: kContentHeight)
             contentImageV.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             contentImageV.backgroundColor = .clear
-            let edgeWH = 10
+            let edgeWH = 0
             contentImageV.image = contentImageV.image?.stretchableImage(withLeftCapWidth: edgeWH, topCapHeight: 50)
             contentView.addSubview(contentImageV)
         }
@@ -335,6 +358,8 @@ extension CFashionAlert {
         contentView.addSubview(titleImageV)
         if subTitleTextView.text.isEmpty == false {
             contentView.addSubview(subTitleTextView)
+        } else if webView.url?.description.isEmpty == false {
+            contentView.addSubview(webView)
         }
         contentView.addSubview(lBtnView)
         contentView.addSubview(rBtnView)
@@ -346,7 +371,7 @@ extension CFashionAlert {
 
 }
 extension CFashionAlert {
-    @objc func showFashionToObjc(title: NSString, subTitle: NSString?, leftBtnTitle: NSString?, rightBtnTitle: NSString?, backImageName: NSString, action: ((_ isClickRightBtn: Bool) -> Void)?) {
+    func showFashionToObjc(title: NSString, subTitle: NSString?, leftBtnTitle: NSString?, rightBtnTitle: NSString?, backImageName: NSString, action: ((_ isClickRightBtn: Bool) -> Void)?) {
         showFashion(title: title as String, subTitle: subTitle as String?, leftBtnTitle: leftBtnTitle as String?, rightBtnTitle: rightBtnTitle as String?, type: .customImg(imageFile: backImageName as String), action: action)
     }
     open func showFashion(title: String, subTitle: String?, leftBtnTitle: String?, rightBtnTitle: String?, type: FashionStyle, action: ((_ isClickRightBtn: Bool) -> Void)?) {
@@ -390,7 +415,7 @@ extension CFashionAlert {
         resizeAndReLayout()
         animateAlert()
     }
-    @objc func showFashionAmazingToObjc(titleType : NSInteger, subtitle: NSString?, leftBtnType: NSInteger, rightBtnType: NSInteger, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
+    func showFashionAmazingToObjc(titleType : NSInteger, subtitle: NSString?, leftBtnType: NSInteger, rightBtnType: NSInteger, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
         showFashionAmazing(titleType: FashionTitleType(rawValue: titleType)!, subtitle: subtitle, leftBtnType: FashionBtnType(rawValue: leftBtnType), rightBtnType: FashionBtnType(rawValue: rightBtnType), backImage: backImage, action: action)
     }
     open func showFashionAmazing(titleType : FashionTitleType, subtitle: NSString?, leftBtnType: FashionBtnType?, rightBtnType: FashionBtnType?, backImage: UIImage?, action: ((_ isClickRightBtn: Bool) -> Void)?) {
@@ -404,7 +429,12 @@ extension CFashionAlert {
         self.setupSubtitleTextView()
         self.setupTitleImage(type: titleType)
         if let subTitle = subtitle as String? {
-            subTitleTextView.text = subTitle
+            if subTitle.contains("http") || subTitle.contains("html") {
+                self.setupWebView(subTitle)
+            } else {
+                self.setupSubtitleTextView()
+                subTitleTextView.text = subTitle
+            }
         }
         if let image = backImage {
             contentImV = UIImageView.init(image: image)
@@ -416,7 +446,7 @@ extension CFashionAlert {
         animateAlert()
     }
     
-    @objc func pressed(_ sender: UIButton!) {
+    func pressed(_ sender: UIButton!) {
         if sender.tag == 0 {
             self.closeAlert(sender.tag)
         } else {
@@ -443,6 +473,16 @@ extension CFashionAlert {
         self.contentWhiteV.removeFromSuperview()
         self.contentView = UIView()
         self.contentWhiteV = UIView()
+        for btn in lBtnView.subviews {
+            if btn.tag == 226 {
+                btn.removeFromSuperview()
+            }
+        }
+        for btn in rBtnView.subviews {
+            if btn.tag == 227 {
+                btn.removeFromSuperview()
+            }
+        }
     }
     
     func animateAlert() {
@@ -485,4 +525,26 @@ extension UIColor {
         return UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)
     }
 
+}
+class SubTextView: UITextView {
+override var canBecomeFirstResponder: Bool {
+    return false
+}
+override init(frame: CGRect, textContainer: NSTextContainer?) {
+    super.init(frame: frame, textContainer: textContainer)
+    let longRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(addGestureRecognizer(_:)))
+    longRecognizer.allowableMovement = 100.0
+    longRecognizer.minimumPressDuration = 1.0
+    self.addGestureRecognizer(longRecognizer)
+}
+
+required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+}
+override func addGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+    if gestureRecognizer.isKind(of: UILongPressGestureRecognizer.self) {
+        gestureRecognizer.isEnabled = false
+    }
+    super.addGestureRecognizer(gestureRecognizer)
+    }
 }
