@@ -15,8 +15,8 @@
 :------:|:-------:|:-------:|:----:|:-----:|
 ZWAlert&ZWAlertController |  https://github.com/Initial-C/ZWAlertController.git | 0.0.8.5| 2017.03 | Initial-C
 
-#### ⚠️ **To use with Swift 3.x please ensure you are using == 0.0.8.5** ⚠️ 
-#### ⚠️ **To use with Swift 4.x please wait a few days** ⚠️ 
+#### ⚠️ **To use with Swift 3.x please ensure you are using == 0.0.8.6** ⚠️ 
+#### ⚠️ **To use with Swift 4.x please use 0.1.0 version ** ⚠️ 
 
 ## Example
 &emsp; __0.0.3 version were updated something about limit characters, it can limit the input of Chinese and English Emoji more precisely__
