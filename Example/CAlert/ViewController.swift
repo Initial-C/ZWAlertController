@@ -410,7 +410,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
     
     // MARK: UITextFieldTextDidChangeNotification
     
-    func handleTextFieldTextDidChangeNotification(_ notification: Notification) {
+    @objc func handleTextFieldTextDidChangeNotification(_ notification: Notification) {
         let textField = notification.object as! UITextField
         
         // Enforce a minimum length of >= 5 characters for secure text alerts.

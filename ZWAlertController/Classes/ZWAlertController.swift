@@ -26,7 +26,7 @@ public enum ZWAlertControllerStyle : Int {
 }
 
 // MARK: ZWAlertAction Class
-
+@objc(ZWAlertAction)
 open class ZWAlertAction : NSObject, NSCopying {
     var title: String
     public var style: ZWAlertActionStyle
@@ -139,7 +139,7 @@ class ZWAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
 }
 
 // MARK: ZWAlertController Class
-
+@objc(ZWAlertController)
 open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
     
     // Message

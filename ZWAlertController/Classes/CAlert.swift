@@ -15,6 +15,7 @@ public enum AlertStyle {
     case customImag(imageFile:String)
 }
 let ccAlert = CAlert()
+@objc(CAlert)
 open class CAlert: UIViewController {
     let kBakcgroundTansperancy: CGFloat = 0.7
     let kHeightMargin: CGFloat = 10.0
@@ -111,7 +112,7 @@ open class CAlert: UIViewController {
         // Subtitle
         if self.subTitleTextView.text.isEmpty == false {
             let subtitleString = subTitleTextView.text! as NSString
-            let rect = subtitleString.boundingRect(with: CGSize(width: width, height: 0.0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: subTitleTextView.font!], context: nil)
+            let rect = subtitleString.boundingRect(with: CGSize(width: width, height: 0.0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: subTitleTextView.font!], context: nil)
             textViewHeight = ceil(rect.size.height) + 10.0
             subTitleTextView.frame = CGRect(x: x, y: y, width: width, height: textViewHeight)
             contentView.addSubview(subTitleTextView)
@@ -121,7 +122,7 @@ open class CAlert: UIViewController {
         var buttonRect:[CGRect] = []
         for button in buttons {
             let string = button.title(for: UIControlState())! as NSString
-            buttonRect.append(string.boundingRect(with: CGSize(width: width, height:0.0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes:[NSFontAttributeName: button.titleLabel!.font], context:nil))
+            buttonRect.append(string.boundingRect(with: CGSize(width: width, height:0.0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes:[NSAttributedStringKey.font: button.titleLabel!.font], context:nil))
         }
         
         var totalWidth: CGFloat = 0.0

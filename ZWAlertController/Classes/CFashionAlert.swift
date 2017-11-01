@@ -20,6 +20,7 @@ public enum FashionBtnType : NSInteger {
     case confirm, cancle, update, other
 }
 let cFashion = CFashionAlert()
+@objc(CFashionAlert)
 open class CFashionAlert: UIViewController {
     
     public var isFashionBoard : Bool = false
@@ -446,7 +447,7 @@ extension CFashionAlert {
         animateAlert()
     }
     
-    func pressed(_ sender: UIButton!) {
+    @objc func pressed(_ sender: UIButton!) {
         if sender.tag == 0 {
             self.closeAlert(sender.tag)
         } else {
