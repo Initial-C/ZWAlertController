@@ -88,12 +88,12 @@
     NSString *text = textField.text;
     //    NSLog(@"text:%@",text);
     
-    UITextRange *selectedRange = [textField markedTextRange];
-    UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
-    
+    UITextRange *markedRange = [textField markedTextRange];
+    UITextPosition *markedPosition = [textField positionFromPosition:markedRange.start offset:0];
+    UITextRange *selectedRange = [textField selectedTextRange];
     // 没有高亮选择的字，则对已输入的文字进行字数统计和限制,防止中文被截断
     
-    if (!position){
+    if (!markedPosition){
         //---字符处理
         // 中文字符处理
         if (self.inputType == ZWTextFieldTypeOnlyChinese) {
@@ -128,6 +128,11 @@
                     textField.text = newText;
                 }
             }
+        }
+        
+        
+        if (selectedRange){
+            [textField setSelectedTextRange:selectedRange];
         }
     }
     if (self.textFieldChange) {
