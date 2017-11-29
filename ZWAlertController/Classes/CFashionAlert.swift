@@ -32,8 +32,8 @@ open class CFashionAlert: UIViewController {
     let kDeviceScreenBounds = UIScreen.main.bounds
     let kDeviceWidth = UIScreen.main.bounds.size.width
     let kDeviceHeight = UIScreen.main.bounds.size.height
-    let kDeviceWidthRatio = UIScreen.main.bounds.size.width / 375
-    let kDeviceHeightRatio = UIScreen.main.bounds.size.height / 667
+    let kDeviceWidthRatio = UIScreen.main.bounds.size.height == 812 ? 1.0 : UIScreen.main.bounds.size.width/375
+    let kDeviceHeightRatio = UIScreen.main.bounds.size.height == 812 ? 1.0 : UIScreen.main.bounds.size.height / 667
     var userAction:((_ isClickRightBtn : Bool) -> Void)? = nil
     var contentView = UIView()
     var contentWhiteV = UIView()
