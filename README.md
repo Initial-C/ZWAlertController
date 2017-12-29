@@ -13,7 +13,7 @@
 
  Module | Address | Version | Date | Author
 :------:|:-------:|:-------:|:----:|:-----:|
-ZWAlert&ZWAlertController |  https://github.com/Initial-C/ZWAlertController.git | 0.0.8.6 | 2017.11 | Initial-C
+ZWAlert&ZWAlertController |  https://github.com/Initial-C/ZWAlertController.git | 0.1.2 | 2017.12.29 | Initial-C
 
 #### ⚠️ **To use with Swift 3.x please ensure you are using == 0.0.8.6** ⚠️ 
 #### ⚠️ **To use with Swift 4.x please use 0.1.2 version ** ⚠️ 
