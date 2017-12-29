@@ -35,6 +35,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             // Action sheet style alerts.
             [
                 self.showOkayCancelActionSheet,
+                self.showCustomSquareStyleActionSheet,
                 self.showOtherActionSheet,
                 self.showCustomActionSheet
             ]
@@ -333,6 +334,34 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
+    /// Show a custom square style sheet alert
+    ///
+    /// - Parameter selectedIndexPath: tableview selected indexpath
+    func showCustomSquareStyleActionSheet(_ selectedIndexPath: IndexPath) {
+        let cancelButtonTitle = "Cancel"
+        let destructiveButtonTitle = "OK"
+        
+        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customActionSheet)
+        
+        // Create the actions.
+        let cancelAction = ZWAlertAction(title: cancelButtonTitle, style: .cancel) { action in
+            NSLog("The \"Okay/Cancel\" alert action sheet's cancel action occured.")
+        }
+        
+        let destructiveAction = ZWAlertAction(title: destructiveButtonTitle, style: .destructive) { action in
+            NSLog("The \"Okay/Cancel\" alert action sheet's destructive action occured.")
+        }
+        
+        let otherAction = ZWAlertAction(title: "Other", style: .default) { (action) in
+            NSLog("The \"Okay/Cancel\" alert action sheet's default action occured.")
+        }
+        // Add the actions.
+        alertController.addAction(cancelAction)
+        alertController.addAction(destructiveAction)
+        alertController.addAction(otherAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     /// Show a dialog with two custom buttons.
     func showOtherActionSheet(_ selectedIndexPath: IndexPath) {
         let title = "Other ActionSheet"
@@ -414,7 +443,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         let textField = notification.object as! UITextField
         
         // Enforce a minimum length of >= 5 characters for secure text alerts.
-        secureTextAlertAction!.enabled = (textField.text?.characters.count)! >= 5
+        secureTextAlertAction!.enabled = (textField.text?.count)! >= 5
     }
     
     // MARK: UITextFieldDelegate Methods

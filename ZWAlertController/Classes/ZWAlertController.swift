@@ -23,6 +23,7 @@ public enum ZWAlertActionStyle : Int {
 public enum ZWAlertControllerStyle : Int {
     case actionSheet
     case alert
+    case customActionSheet
 }
 
 // MARK: ZWAlertAction Class
@@ -210,6 +211,11 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     fileprivate var buttonContainerHeightConstraint: NSLayoutConstraint!
     fileprivate let buttonHeight: CGFloat = 44.0
     fileprivate var buttonMargin: CGFloat = 10.0
+    fileprivate let squareButtonHeight : CGFloat = 55
+    fileprivate var squareButtonMargin : CGFloat = 2.0
+    fileprivate let squareButtonFont = UIFont.systemFont(ofSize: 14)
+    fileprivate let squareNormalTextColor = UIColor(red:51/255, green:51/255, blue:51/255, alpha:1.0)
+    fileprivate let squareDestructiveTextColor = UIColor(red:255/255, green:93/255, blue:93/255, alpha:1.0)
     
     // Actions
     fileprivate(set) var actions: [AnyObject] = []
@@ -283,11 +289,21 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         
         // variable for ActionSheet
         if (!isAlert()) {
-            alertViewWidth =  screenSize.width
-            alertViewPadding = 8.0
-            innerContentWidth = (screenSize.height > screenSize.width) ? screenSize.width - alertViewPadding * 2 : screenSize.height - alertViewPadding * 2
-            buttonMargin = 8.0
-            buttonCornerRadius = 6.0
+            if !isCustomSheet() {
+                alertViewWidth =  screenSize.width
+                alertViewPadding = 8.0
+                innerContentWidth = (screenSize.height > screenSize.width) ? screenSize.width - alertViewPadding * 2 : screenSize.height - alertViewPadding * 2
+                buttonMargin = 8.0
+                buttonCornerRadius = 6.0
+            } else {
+                alertViewBgColor = UIColor(red:238/255, green:238/255, blue:238/255, alpha:1.0)
+                alertViewWidth = screenSize.width
+                alertViewPadding = 0.0
+                innerContentWidth = (screenSize.height > screenSize.width) ? screenSize.width : screenSize.height
+                buttonMargin = 5.0  // cancel button margin
+                squareButtonMargin = 2.0
+                buttonCornerRadius = 0.0
+            }
         }
         
         // self.view
@@ -449,8 +465,10 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         overlayView.backgroundColor = overlayColor
         alertView.backgroundColor = alertViewBgColor
         
-        alertView.layer.cornerRadius = 12
-        alertView.layer.masksToBounds = true
+        if !isCustomSheet() {
+            alertView.layer.cornerRadius = 12
+            alertView.layer.masksToBounds = true
+        }
         
         //------------------------------
         // TextArea Layout
@@ -527,7 +545,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         //------------------------------
         // ButtonArea Layout
         //------------------------------
-        var buttonAreaPositionY: CGFloat = buttonMargin
+        var buttonAreaPositionY: CGFloat = isCustomSheet() ? squareButtonMargin : buttonMargin
         
         // Buttons
         if (isAlert() && buttons.count == 2) {
@@ -548,13 +566,27 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             for button in buttons {
                 let action = actions[button.tag - 1] as! ZWAlertAction
                 if (action.style != ZWAlertActionStyle.cancel) {
-                    button.titleLabel?.font = buttonFont[action.style]!
-                    button.setTitleColor(buttonTextColor[action.style], for: UIControlState())
-                    button.setBackgroundImage(createImageFromUIColor(buttonBgColor[action.style]!), for: UIControlState())
-                    button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .highlighted)
-                    button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .selected)
-                    button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: buttonHeight)
-                    buttonAreaPositionY += buttonHeight + buttonMargin
+                    if !isCustomSheet() {
+                        button.titleLabel?.font = buttonFont[action.style]!
+                        button.setTitleColor(buttonTextColor[action.style], for: UIControlState())
+                        button.setBackgroundImage(createImageFromUIColor(buttonBgColor[action.style]!), for: UIControlState())
+                        button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .highlighted)
+                        button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .selected)
+                        button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: buttonHeight)
+                        buttonAreaPositionY += buttonHeight + buttonMargin
+                    } else {
+                        button.titleLabel?.font = squareButtonFont
+                        let btnTextColor = action.style == .destructive ? squareDestructiveTextColor : squareNormalTextColor
+                        let btnHighSelectedColor = UIColor(red:245/255, green:245/255, blue:245/255, alpha:1.0)
+                        let btnGeneralColorImage = createImageFromUIColor(btnHighSelectedColor)
+                        button.setTitleColor(btnTextColor, for: UIControlState())
+                        button.setBackgroundImage(createImageFromUIColor(.white), for: UIControlState())
+                        button.setBackgroundImage(btnGeneralColorImage, for: .highlighted)
+                        button.setBackgroundImage(btnGeneralColorImage, for: .selected)
+                        buttonAreaPositionY = buttonAreaPositionY == squareButtonMargin ? 0.0 : buttonAreaPositionY
+                        button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: squareButtonHeight)
+                        buttonAreaPositionY += squareButtonHeight + squareButtonMargin
+                    }
                 } else {
                     cancelButtonTag = button.tag
                 }
@@ -567,13 +599,18 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                 }
                 let button = buttonAreaScrollView.viewWithTag(cancelButtonTag) as! UIButton
                 let action = actions[cancelButtonTag - 1] as! ZWAlertAction
-                button.titleLabel?.font = buttonFont[action.style]!
-                button.setTitleColor(buttonTextColor[action.style], for: UIControlState())
-                button.setBackgroundImage(createImageFromUIColor(buttonBgColor[action.style]!), for: UIControlState())
-                button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .highlighted)
-                button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .selected)
-                button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: buttonHeight)
-                buttonAreaPositionY += buttonHeight + buttonMargin
+                let btnTextColor = isCustomSheet() ? squareNormalTextColor : buttonTextColor[action.style]
+                let btnHighSelectedColor = UIColor(red:245/255, green:245/255, blue:245/255, alpha:1.0)
+                let btnCancelNormalColorImage = isCustomSheet() ? createImageFromUIColor(.white) : createImageFromUIColor(buttonBgColor[action.style]!)
+                let btnCancelColorImage = isCustomSheet() ? createImageFromUIColor(btnHighSelectedColor) : createImageFromUIColor(buttonBgColorHighlighted[action.style]!)
+                let btnCancelHeight = isCustomSheet() ? squareButtonHeight : buttonHeight
+                button.titleLabel?.font = isCustomSheet() ? squareButtonFont : buttonFont[action.style]!
+                button.setTitleColor(btnTextColor, for: UIControlState())
+                button.setBackgroundImage(btnCancelNormalColorImage, for: UIControlState())
+                button.setBackgroundImage(btnCancelColorImage, for: .highlighted)
+                button.setBackgroundImage(btnCancelColorImage, for: .selected)
+                button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: btnCancelHeight)
+                buttonAreaPositionY += btnCancelHeight + buttonMargin
             }
             buttonAreaPositionY -= buttonMargin
         }
@@ -757,6 +794,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     }
     
     open func isAlert() -> Bool { return preferredStyle == .alert }
+    fileprivate func isCustomSheet() -> Bool { return preferredStyle == .customActionSheet}
     
     // MARK: UITextFieldDelegate Methods
     
