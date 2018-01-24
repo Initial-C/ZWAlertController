@@ -14,6 +14,7 @@ import UIKit
 
 let ZWAlertActionEnabledDidChangeNotification = "ZWAlertActionEnabledDidChangeNotification"
 let zwAlert = ZWAlertController()
+private let isIPhoneXSpec = UIScreen.main.bounds.height == 812
 public enum ZWAlertActionStyle : Int {
     case `default`
     case cancel
@@ -603,13 +604,14 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                 let btnHighSelectedColor = UIColor(red:245/255, green:245/255, blue:245/255, alpha:1.0)
                 let btnCancelNormalColorImage = isCustomSheet() ? createImageFromUIColor(.white) : createImageFromUIColor(buttonBgColor[action.style]!)
                 let btnCancelColorImage = isCustomSheet() ? createImageFromUIColor(btnHighSelectedColor) : createImageFromUIColor(buttonBgColorHighlighted[action.style]!)
-                let btnCancelHeight = isCustomSheet() ? squareButtonHeight : buttonHeight
+                let btnCancelHeight = isCustomSheet() ? (isIPhoneXSpec ? squareButtonHeight + 34 : squareButtonHeight) : buttonHeight
                 button.titleLabel?.font = isCustomSheet() ? squareButtonFont : buttonFont[action.style]!
                 button.setTitleColor(btnTextColor, for: UIControlState())
                 button.setBackgroundImage(btnCancelNormalColorImage, for: UIControlState())
                 button.setBackgroundImage(btnCancelColorImage, for: .highlighted)
                 button.setBackgroundImage(btnCancelColorImage, for: .selected)
                 button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: btnCancelHeight)
+                button.titleEdgeInsets = UIEdgeInsetsMake(isIPhoneXSpec ? -34 : 0, 0, 0, 0)
                 buttonAreaPositionY += btnCancelHeight + buttonMargin
             }
             buttonAreaPositionY -= buttonMargin
