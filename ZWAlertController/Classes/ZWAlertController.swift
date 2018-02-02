@@ -680,10 +680,12 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     // Handle ContainerView tap gesture
     @objc func handleContainerViewTapGesture(_ sender: AnyObject) {
         // cancel action
+        /*
         let action = actions[cancelButtonTag] as! ZWAlertAction
         if (action.handler != nil) {
             action.handler(action)
         }
+        */
         self.dismiss(animated: true, completion: nil)
     }
     
