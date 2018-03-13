@@ -450,6 +450,9 @@ extension CFashionAlert {
     @objc func pressed(_ sender: UIButton!) {
         if sender.tag == 0 {
             self.closeAlert(sender.tag)
+            if userAction != nil {
+                userAction!(false)
+            }
         } else {
             if userAction != nil {
                 userAction!(true)
