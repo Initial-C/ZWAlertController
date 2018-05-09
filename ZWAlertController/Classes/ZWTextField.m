@@ -118,10 +118,10 @@
         if ([ZWTextField unicodeLength:textField.text] > _maxTextLength) {
             NSRange range;
             NSUInteger byteLength = 0;
-            for(int i=0; i < text.length && byteLength <= _maxBytesLength; i += range.length) {
+            for(int i=0; i < text.length && byteLength <= _maxTextLength; i += range.length) {
                 range = [textField.text rangeOfComposedCharacterSequenceAtIndex:i];
                 byteLength += strlen([[text substringWithRange:range] UTF8String]);
-                if (byteLength > _maxBytesLength) {
+                if (byteLength > _maxTextLength) {
                     NSString* newText = [text substringWithRange:NSMakeRange(0, range.location)];
                     textField.text = newText;
                 }
