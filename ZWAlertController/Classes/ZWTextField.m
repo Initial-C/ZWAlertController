@@ -11,6 +11,11 @@
 #define isIPhone ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
 #define isIPad   ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 
+struct ZWTextInfo {
+    NSInteger length;
+    NSInteger number;
+};
+typedef struct ZWTextInfo ZWTextInfo;
 @implementation NSString (ZWTextField)
 
 -(BOOL) isTextFieldMatchWithRegularExpression:(NSString *)exporession{
@@ -116,15 +121,9 @@
         }
         //中英文字符处理
         if ([ZWTextField unicodeLength:textField.text] > _maxTextLength) {
-            NSRange range;
-            NSUInteger byteLength = 0;
-            for(int i=0; i < text.length && byteLength <= _maxTextLength; i += range.length) {
-                range = [textField.text rangeOfComposedCharacterSequenceAtIndex:i];
-                byteLength += strlen([[text substringWithRange:range] UTF8String]);
-                if (byteLength > _maxTextLength) {
-                    NSString* newText = [text substringWithRange:NSMakeRange(0, range.location)];
-                    textField.text = newText;
-                }
+            ZWTextInfo title = [self getInfoWithText:textField.text maxLength:_maxTextLength*2];
+            if (title.length > _maxTextLength*2) {
+                textField.text = [textField.text substringToIndex:title.number];
             }
         }
         
@@ -295,6 +294,32 @@
 }
 
 // 中英文字符数计算
+- (ZWTextInfo)getInfoWithText:(NSString *)text maxLength:(NSInteger)maxLength{
+    ZWTextInfo title;
+    int length = 0;
+    int singleNum = 0;
+    int totalNum = 0;
+    char *p = (char *)[text cStringUsingEncoding:NSUnicodeStringEncoding];
+    for (int i = 0; i < [text lengthOfBytesUsingEncoding:NSUnicodeStringEncoding]; i++) {
+        if (*p) {
+            length++;
+            if (length <= maxLength) {
+                totalNum++;
+            }
+        }
+        else {
+            if (length <= maxLength) {
+                singleNum++;
+            }
+        }
+        p++;
+    }
+    
+    title.length = length;
+    title.number = (totalNum - singleNum) / 2 + singleNum;
+    
+    return title;
+}
 + (int)unicodeLength:(NSString *)text {
     int asciiLength = 0;
     for (NSUInteger i = 0; i < text.length; i++) {
