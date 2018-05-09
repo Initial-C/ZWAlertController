@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, ZWTextFieldEvent){
 @property(nonatomic,assign) ZWTextFieldType inputType;
 
 /**
- *  最大字符数
+ *  最大中文字符数
  */
 @property(nonatomic,assign) NSInteger maxLength;
 
@@ -58,6 +58,11 @@ typedef NS_ENUM(NSUInteger, ZWTextFieldEvent){
  *  最大字节数
  */
 @property(nonatomic,assign) NSInteger maxBytesLength;
+
+/**
+ *  最大字符数(2英文字符=1中文字符)
+ */
+@property (assign, nonatomic) NSInteger maxTextLength;
 
 /**
  *  代理

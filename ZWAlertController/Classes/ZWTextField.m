@@ -79,6 +79,7 @@
 
 -(void) initData{
     _maxLength = INT_MAX;
+    _maxTextLength = INT_MAX;
     _maxBytesLength = INT_MAX;
 }
 
@@ -108,6 +109,19 @@
                 range = [textField.text rangeOfComposedCharacterSequenceAtIndex:i];
                 inputLength += [text substringWithRange:range].length;
                 if (inputLength > _maxLength) {
+                    NSString* newText = [text substringWithRange:NSMakeRange(0, range.location)];
+                    textField.text = newText;
+                }
+            }
+        }
+        //中英文字符处理
+        if ([ZWTextField unicodeLength:textField.text] > _maxTextLength) {
+            NSRange range;
+            NSUInteger byteLength = 0;
+            for(int i=0; i < text.length && byteLength <= _maxBytesLength; i += range.length) {
+                range = [textField.text rangeOfComposedCharacterSequenceAtIndex:i];
+                byteLength += strlen([[text substringWithRange:range] UTF8String]);
+                if (byteLength > _maxBytesLength) {
                     NSString* newText = [text substringWithRange:NSMakeRange(0, range.location)];
                     textField.text = newText;
                 }
@@ -278,6 +292,20 @@
     } else {
         return YES;
     }
+}
+
+// 中英文字符数计算
++ (int)unicodeLength:(NSString *)text {
+    int asciiLength = 0;
+    for (NSUInteger i = 0; i < text.length; i++) {
+        unichar uc = [text characterAtIndex: i];
+        asciiLength += isascii(uc) ? 1 : 2;
+    }
+    int unicodeLength = asciiLength / 2;
+    if(asciiLength % 2) {
+        unicodeLength++; // 四舍五入
+    }
+    return unicodeLength;
 }
 
 @end
