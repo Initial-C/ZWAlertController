@@ -31,6 +31,7 @@ public enum ZWAlertControllerStyle : Int {
 @objc(ZWAlertAction)
 open class ZWAlertAction : NSObject, NSCopying {
     var title: String
+    var image: UIImage?
     public var style: ZWAlertActionStyle
     public var handler: ((ZWAlertAction?) -> Void)!
     open var enabled: Bool {
@@ -41,15 +42,22 @@ open class ZWAlertAction : NSObject, NSCopying {
         }
     }
     
-    required public init(title: String, style: ZWAlertActionStyle, handler: ((ZWAlertAction?) -> Void)!) {
+    public init(title: String, style: ZWAlertActionStyle, handler: ((ZWAlertAction?) -> Void)!) {
         self.title = title
         self.style = style
         self.handler = handler
         self.enabled = true
     }
+    required public init(title: String, image: UIImage?, style: ZWAlertActionStyle, handler: ((ZWAlertAction?) -> Void)!) {
+        self.title = title
+        self.style = style
+        self.handler = handler
+        self.enabled = true
+        self.image = image
+    }
     
     public func copy(with zone: NSZone?) -> Any {
-        let copy = type(of: self).init(title: title, style: style, handler: handler)
+        let copy = type(of: self).init(title: title, image: image, style: style, handler: handler)
         copy.enabled = self.enabled
         return copy
     }
@@ -215,6 +223,8 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     fileprivate let squareButtonHeight : CGFloat = 55
     fileprivate var squareButtonMargin : CGFloat = 2.0
     fileprivate let squareButtonFont = UIFont.systemFont(ofSize: 14)
+    fileprivate let squareIconButtonFont = UIFont.systemFont(ofSize: 15)
+    fileprivate let squareIconNormalTextColor = UIColor(red:102/255, green:102/255, blue:102/255, alpha:1.0)
     fileprivate let squareNormalTextColor = UIColor(red:51/255, green:51/255, blue:51/255, alpha:1.0)
     fileprivate let squareDestructiveTextColor = UIColor(red:255/255, green:93/255, blue:93/255, alpha:1.0)
     
@@ -576,14 +586,23 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                         button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: buttonHeight)
                         buttonAreaPositionY += buttonHeight + buttonMargin
                     } else {
-                        button.titleLabel?.font = squareButtonFont
-                        let btnTextColor = action.style == .destructive ? squareDestructiveTextColor : squareNormalTextColor
+                        let isNormalBtn = action.image == nil
+                        let btnFont = isNormalBtn ? squareButtonFont : squareIconButtonFont
+                        let btnStrColor = isNormalBtn ? squareNormalTextColor : squareIconNormalTextColor
+                        button.titleLabel?.font = btnFont
+                        let btnTextColor = action.style == .destructive ? squareDestructiveTextColor : btnStrColor
                         let btnHighSelectedColor = UIColor(red:245/255, green:245/255, blue:245/255, alpha:1.0)
                         let btnGeneralColorImage = createImageFromUIColor(btnHighSelectedColor)
                         button.setTitleColor(btnTextColor, for: UIControlState())
                         button.setBackgroundImage(createImageFromUIColor(.white), for: UIControlState())
                         button.setBackgroundImage(btnGeneralColorImage, for: .highlighted)
                         button.setBackgroundImage(btnGeneralColorImage, for: .selected)
+                        if let image = action.image {
+                            button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+                            button.setImage(image, for: .normal)
+                            button.imageEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
+                            button.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
+                        }
                         buttonAreaPositionY = buttonAreaPositionY == squareButtonMargin ? 0.0 : buttonAreaPositionY
                         button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: squareButtonHeight)
                         buttonAreaPositionY += squareButtonHeight + squareButtonMargin
@@ -600,18 +619,26 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                 }
                 let button = buttonAreaScrollView.viewWithTag(cancelButtonTag) as! UIButton
                 let action = actions[cancelButtonTag - 1] as! ZWAlertAction
-                let btnTextColor = isCustomSheet() ? squareNormalTextColor : buttonTextColor[action.style]
+                let isNormalBtn = action.image == nil
+                let btnFont = isNormalBtn ? squareButtonFont : squareIconButtonFont
+                let btnStrColor = isNormalBtn ? squareNormalTextColor : squareIconNormalTextColor
+                let btnTextColor = isCustomSheet() ? btnStrColor : buttonTextColor[action.style]
                 let btnHighSelectedColor = UIColor(red:245/255, green:245/255, blue:245/255, alpha:1.0)
                 let btnCancelNormalColorImage = isCustomSheet() ? createImageFromUIColor(.white) : createImageFromUIColor(buttonBgColor[action.style]!)
                 let btnCancelColorImage = isCustomSheet() ? createImageFromUIColor(btnHighSelectedColor) : createImageFromUIColor(buttonBgColorHighlighted[action.style]!)
                 let btnCancelHeight = isCustomSheet() ? (isIPhoneXSpec ? squareButtonHeight + 34 : squareButtonHeight) : buttonHeight
-                button.titleLabel?.font = isCustomSheet() ? squareButtonFont : buttonFont[action.style]!
+                button.titleLabel?.font = isCustomSheet() ? btnFont : buttonFont[action.style]!
                 button.setTitleColor(btnTextColor, for: UIControlState())
                 button.setBackgroundImage(btnCancelNormalColorImage, for: UIControlState())
                 button.setBackgroundImage(btnCancelColorImage, for: .highlighted)
                 button.setBackgroundImage(btnCancelColorImage, for: .selected)
+                if let image = action.image {
+                    button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+                    button.setImage(image, for: .normal)
+                    button.imageEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
+                }
                 button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: btnCancelHeight)
-                button.titleEdgeInsets = UIEdgeInsetsMake(isIPhoneXSpec ? -34 : 0, 0, 0, 0)
+                button.titleEdgeInsets = UIEdgeInsetsMake(isIPhoneXSpec ? -34 : 0, isNormalBtn ? 0 : 20, 0, 0)
                 buttonAreaPositionY += btnCancelHeight + buttonMargin
             }
             buttonAreaPositionY -= buttonMargin

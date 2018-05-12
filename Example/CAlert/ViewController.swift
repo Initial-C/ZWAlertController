@@ -36,6 +36,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             [
                 self.showOkayCancelActionSheet,
                 self.showCustomSquareStyleActionSheet,
+                self.showCustomSquareLeftStyleActionSheet,
                 self.showOtherActionSheet,
                 self.showCustomActionSheet
             ]
@@ -359,6 +360,27 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         alertController.addAction(cancelAction)
         alertController.addAction(destructiveAction)
         alertController.addAction(otherAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    /// Show a custom square style sheet alert with icon
+    ///
+    /// - Parameter selectedIndexPath: tableview selected indexpath
+    func showCustomSquareLeftStyleActionSheet(_ selectedIndexPath: IndexPath) {
+        let cancelButtonTitle = "Cancel"
+        
+        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customActionSheet)
+        
+        // Create the actions.
+        let cancelAction = ZWAlertAction(title: cancelButtonTitle, image: #imageLiteral(resourceName: "wd-gl"), style: .cancel) { action in
+            NSLog("The \"Default/Cancel\" alert action sheet's cancel action occured.")
+        }
+        
+        let defaultAction = ZWAlertAction(title: "Default action", image: #imageLiteral(resourceName: "wd-cj"), style: .default) { action in
+            NSLog("The \"Default/Cancel\" alert action sheet's default action occured.")
+        }
+        // Add the actions.
+        alertController.addAction(cancelAction)
+        alertController.addAction(defaultAction)
         present(alertController, animated: true, completion: nil)
     }
     
