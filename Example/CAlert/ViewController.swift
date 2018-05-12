@@ -375,12 +375,12 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             NSLog("The \"Default/Cancel\" alert action sheet's cancel action occured.")
         }
         
-        let defaultAction = ZWAlertAction(title: "Default action", image: #imageLiteral(resourceName: "wd-cj"), style: .default) { action in
-            NSLog("The \"Default/Cancel\" alert action sheet's default action occured.")
-        }
+//        let defaultAction = ZWAlertAction(title: "Default action", image: #imageLiteral(resourceName: "wd-cj"), style: .default) { action in
+//            NSLog("The \"Default/Cancel\" alert action sheet's default action occured.")
+//        }
         // Add the actions.
         alertController.addAction(cancelAction)
-        alertController.addAction(defaultAction)
+//        alertController.addAction(defaultAction)
         present(alertController, animated: true, completion: nil)
     }
     

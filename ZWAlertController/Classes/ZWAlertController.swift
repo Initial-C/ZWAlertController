@@ -616,6 +616,8 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             if (cancelButtonTag != 0) {
                 if (!isAlert() && buttons.count > 1) {
                     buttonAreaPositionY += buttonMargin
+                } else if (!isAlert() && buttons.count == 1) {
+                    buttonAreaPositionY = 0.0
                 }
                 let button = buttonAreaScrollView.viewWithTag(cancelButtonTag) as! UIButton
                 let action = actions[cancelButtonTag - 1] as! ZWAlertAction
@@ -635,7 +637,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                 if let image = action.image {
                     button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
                     button.setImage(image, for: .normal)
-                    button.imageEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
+                    button.imageEdgeInsets = UIEdgeInsetsMake(isIPhoneXSpec ? -34 : 0, 12, 0, 0)
                 }
                 button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: btnCancelHeight)
                 button.titleEdgeInsets = UIEdgeInsetsMake(isIPhoneXSpec ? -34 : 0, isNormalBtn ? 0 : 20, 0, 0)
