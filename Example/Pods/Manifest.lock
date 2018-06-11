@@ -6,11 +6,11 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   ZWAlertController:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  ZWAlertController: d5a1e3b326bc645c4d235a0c39e9a0d16d53fefe
+  ZWAlertController: 755aacbe5dcc586d395842526575e20ee3ba85ad
 
 PODFILE CHECKSUM: f5b1ff9968cfd66fade08272c3b6844c6c8bfe96
 
-COCOAPODS: 1.2.0.beta.3
+COCOAPODS: 1.4.0

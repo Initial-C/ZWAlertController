@@ -19,12 +19,16 @@ public enum ZWAlertActionStyle : Int {
     case `default`
     case cancel
     case destructive
+    case simplifyCancel
+    case simplifyDefault
+    case simplifyDestructive
 }
 
 public enum ZWAlertControllerStyle : Int {
     case actionSheet
     case alert
     case customActionSheet
+    case simplify
 }
 
 // MARK: ZWAlertAction Class
@@ -218,7 +222,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     // ButtonContainer
     fileprivate var buttonContainer = UIView()
     fileprivate var buttonContainerHeightConstraint: NSLayoutConstraint!
-    fileprivate let buttonHeight: CGFloat = 44.0
+    fileprivate var buttonHeight: CGFloat = 44.0
     fileprivate var buttonMargin: CGFloat = 10.0
     fileprivate let squareButtonHeight : CGFloat = 55
     fileprivate var squareButtonMargin : CGFloat = 2.0
@@ -248,22 +252,34 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     public var buttonFont: [ZWAlertActionStyle : UIFont?] = [
         .default : UIFont(name: "HelveticaNeue-Bold", size: 16),
         .cancel  : UIFont(name: "HelveticaNeue-Bold", size: 16),
-        .destructive  : UIFont(name: "HelveticaNeue-Bold", size: 16)
+        .destructive  : UIFont(name: "HelveticaNeue-Bold", size: 16),
+        .simplifyCancel : UIFont(name: "PingFangSC-Medium", size: 16),
+        .simplifyDefault : UIFont(name: "PingFangSC-Medium", size: 16),
+        .simplifyDestructive : UIFont(name: "PingFangSC-Medium", size: 16)
     ]
     public var buttonTextColor: [ZWAlertActionStyle : UIColor] = [
         .default : UIColor.white,
         .cancel  : UIColor.white,
-        .destructive  : UIColor.white
+        .destructive  : UIColor.white,
+        .simplifyDefault : UIColor.init(red: 255/255.0, green: 204/255.0, blue: 0/255.0, alpha: 1.0),
+        .simplifyDestructive : UIColor(red:255/255, green:93/255, blue:93/255, alpha:1.0),
+        .simplifyCancel : UIColor.init(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1.0)
     ]
     public var buttonBgColor: [ZWAlertActionStyle : UIColor] = [
         .default : UIColor(red:52/255, green:152/255, blue:219/255, alpha:1),
         .cancel  : UIColor(red:127/255, green:140/255, blue:141/255, alpha:1),
-        .destructive  : UIColor(red:231/255, green:76/255, blue:60/255, alpha:1)
+        .destructive  : UIColor(red:231/255, green:76/255, blue:60/255, alpha:1),
+        .simplifyDefault : UIColor.white,
+        .simplifyDestructive : UIColor.white,
+        .simplifyCancel : UIColor.white
     ]
     public var buttonBgColorHighlighted: [ZWAlertActionStyle : UIColor] = [
         .default : UIColor(red:74/255, green:163/255, blue:223/255, alpha:1),
         .cancel  : UIColor(red:140/255, green:152/255, blue:153/255, alpha:1),
-        .destructive  : UIColor(red:234/255, green:97/255, blue:83/255, alpha:1)
+        .destructive  : UIColor(red:234/255, green:97/255, blue:83/255, alpha:1),
+        .simplifyDefault : UIColor(red:239/255, green:240/255, blue:242/255, alpha:1.0),
+        .simplifyDestructive : UIColor(red:239/255, green:240/255, blue:242/255, alpha:1.0),
+        .simplifyCancel : UIColor(red:239/255, green:240/255, blue:242/255, alpha:1.0)
     ]
     fileprivate var buttonCornerRadius: CGFloat = 4.0
     fileprivate var layoutFlg = false
@@ -278,6 +294,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         self.message = message
         self.preferredStyle = preferredStyle
         
+        self.resizeProperties()
         self.providesPresentationContextTransitionStyle = true
         self.definesPresentationContext = true
         self.modalPresentationStyle = UIModalPresentationStyle.custom
@@ -439,7 +456,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         buttonAreaView.addConstraints([buttonAreaViewHeightConstraint, buttonContainerTopSpaceConstraint, buttonContainerCenterXConstraint])
         
         // ButtonContainer
-        let buttonContainerWidthConstraint = NSLayoutConstraint(item: buttonContainer, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: innerContentWidth)
+        let buttonContainerWidthConstraint = NSLayoutConstraint(item: buttonContainer, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: isSimplify ? alertViewWidth : innerContentWidth)
         buttonContainerHeightConstraint = NSLayoutConstraint(item: buttonContainer, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 0.0)
         buttonContainer.addConstraints([buttonContainerWidthConstraint, buttonContainerHeightConstraint])
     }
@@ -465,7 +482,21 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             containerView.addGestureRecognizer(tapGesture)
         }
     }
-    
+    func resizeProperties() {
+        if isSimplify {
+            alertViewBgColor = UIColor.white
+            alertViewWidth = 280.0
+            alertViewPadding = 0.0
+            innerContentWidth = 220.0
+            titleFont = UIFont(name: "PingFangSC-Regular", size: 18)
+            titleTextColor = UIColor(red:51/255, green:51/255, blue:51/255, alpha:1.0)
+            messageFont = UIFont(name: "PingFangSC-Regular", size: 15)
+            messageTextColor = UIColor(red:51/255, green:51/255, blue:51/255, alpha:1.0)
+            buttonHeight = 45.0
+            buttonMargin = 0.5
+            buttonCornerRadius = 0.0
+        }
+    }
     func layoutView() {
         if (layoutFlg) { return }
         layoutFlg = true
@@ -477,7 +508,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         alertView.backgroundColor = alertViewBgColor
         
         if !isCustomSheet() {
-            alertView.layer.cornerRadius = 12
+            alertView.layer.cornerRadius = isSimplify ? 10 : 12
             alertView.layer.masksToBounds = true
         }
         
@@ -492,35 +523,40 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         if (!isAlert()) {textAreaPositionY += alertViewPadding}
         
         // TitleLabel
-        if (hasTitle) {
-            titleLabel.frame.size = CGSize(width: innerContentWidth, height: 0.0)
+        if (hasTitle || isSimplify) {
+            titleLabel.frame.size = CGSize(width: innerContentWidth, height: 30)
             titleLabel.numberOfLines = 0
             titleLabel.textAlignment = .center
             titleLabel.font = titleFont
             titleLabel.textColor = titleTextColor
             titleLabel.text = title
-            titleLabel.sizeToFit()
+            if !isSimplify {
+                titleLabel.sizeToFit()
+            }
             titleLabel.frame = CGRect(x: 0, y: textAreaPositionY, width: innerContentWidth, height: titleLabel.frame.height)
             textContainer.addSubview(titleLabel)
-            textAreaPositionY += titleLabel.frame.height + 5.0
+            textAreaPositionY += titleLabel.frame.height + (isSimplify ? 0.0 : 5.0)
         }
         
         // MessageView
         if (hasMessage) {
-            messageView.frame.size = CGSize(width: innerContentWidth, height: 0.0)
+            messageView.frame.size = CGSize(width: innerContentWidth, height: 55)
             messageView.numberOfLines = 0
             messageView.textAlignment = .center
             messageView.font = messageFont
             messageView.textColor = messageTextColor
             messageView.text = message
-            messageView.sizeToFit()
+            if !isSimplify {
+                messageView.sizeToFit()
+            }
             messageView.frame = CGRect(x: 0, y: textAreaPositionY, width: innerContentWidth, height: messageView.frame.height)
             textContainer.addSubview(messageView)
-            textAreaPositionY += messageView.frame.height + 5.0
+            textAreaPositionY += messageView.frame.height + (isSimplify ? 29.0 : 5.0)
         }
         
         // TextFieldContainerView
         if (hasTextField) {
+            if isSimplify { textAreaPositionY -= 24 }
             if (hasTitle || hasMessage) { textAreaPositionY += 5.0 }
             
             textFieldContainerView.backgroundColor = textFieldBorderColor
@@ -560,8 +596,8 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         
         // Buttons
         if (isAlert() && buttons.count == 2) {
-            let buttonWidth = (innerContentWidth - buttonMargin) / 2
-            var buttonPositionX: CGFloat = 0.0
+            let buttonWidth = isSimplify ? alertViewWidth*0.5 : (innerContentWidth - buttonMargin) / 2
+            var buttonPositionX : CGFloat = 0.0
             for button in buttons {
                 let action = actions[button.tag - 1] as! ZWAlertAction
                 button.titleLabel?.font = buttonFont[action.style]!
@@ -735,7 +771,9 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     
     @objc func handleAlertActionEnabledDidChangeNotification(_ notification: Notification) {
         for i in 0..<buttons.count {
-            buttons[i].isEnabled = actions[i].isEnabled
+            if actions.count >= buttons.count {
+                buttons[i].isEnabled = actions[i].isEnabled
+            }
         }
     }
     
@@ -794,6 +832,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         }
         button.tag = buttons.count + 1
         buttons.append(button)
+        buttonContainer.backgroundColor = isSimplify ? UIColor.init(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1.0) : .clear
         buttonContainer.addSubview(button)
     }
     
@@ -826,8 +865,13 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         textFieldContainerView.addSubview(textField)
     }
     
-    open func isAlert() -> Bool { return preferredStyle == .alert }
+    open func isAlert() -> Bool { return preferredStyle == .alert || preferredStyle == .simplify }
     fileprivate func isCustomSheet() -> Bool { return preferredStyle == .customActionSheet}
+    fileprivate var isSimplify : Bool {
+        get {
+            return preferredStyle == .simplify
+        }
+    }
     
     // MARK: UITextFieldDelegate Methods
     

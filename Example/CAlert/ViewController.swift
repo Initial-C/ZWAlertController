@@ -30,7 +30,8 @@ class ViewController : UITableViewController, UITextFieldDelegate {
                 self.showTextEntryAlert,
                 self.showSecureTextEntryAlert,
                 self.showCustomAlert,
-                self.showCAlert
+                self.showCAlert,
+                self.showSimplifyOkayCancelAlert
             ],
             // Action sheet style alerts.
             [
@@ -309,6 +310,30 @@ class ViewController : UITableViewController, UITextFieldDelegate {
                 print("点击确定")
             }
         }
+    }
+    /// Show the alert style - Simplify
+    func showSimplifyOkayCancelAlert(_ : IndexPath) {
+//        let title = "Okay/Cancel Simplify Alert"
+        let message = "A message should be a short, complete sentence."
+        let cancelButtonTitle = "Cancel"
+        let otherButtonTitle = "OK"
+        
+        let alertCotroller = ZWAlertController(title: nil, message: message, preferredStyle: .simplify)
+        
+        // Create the actions.
+        let cancelAction = ZWAlertAction(title: cancelButtonTitle, style: .simplifyCancel) { action in
+            NSLog("The \"Okay/Cancel\" alert's cancel action occured.")
+        }
+        
+        let otherAction = ZWAlertAction(title: otherButtonTitle, style: .simplifyDefault) { action in
+            NSLog("The \"Okay/Cancel\" alert's other action occured.")
+        }
+        
+        // Add the actions.
+        alertCotroller.addAction(cancelAction)
+        alertCotroller.addAction(otherAction)
+        
+        present(alertCotroller, animated: true, completion: nil)
     }
     // MARK: ZWAlertControllerStyleActionSheet Style Alerts
     
