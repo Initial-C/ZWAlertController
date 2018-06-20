@@ -314,7 +314,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
     /// Show the alert style - Simplify
     func showSimplifyOkayCancelAlert(_ : IndexPath) {
 //        let title = "Okay/Cancel Simplify Alert"
-        let message = "A message should be a short, complete sentence."
+        let message = "A message should be a short, complete sentence. "
         let cancelButtonTitle = "Cancel"
         let otherButtonTitle = "OK"
         

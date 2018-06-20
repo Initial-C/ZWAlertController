@@ -497,6 +497,12 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             buttonCornerRadius = 0.0
         }
     }
+    private func getLabHeigh(_ labelStr:String, _ font:UIFont, _ width:CGFloat) -> CGFloat {
+        let statusLabelText : NSString = NSString.init(string: labelStr)
+        let size = CGSize.init(width: width, height: 900)
+        let strSize = statusLabelText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font : font], context: nil).size
+        return strSize.height
+    }
     func layoutView() {
         if (layoutFlg) { return }
         layoutFlg = true
@@ -522,6 +528,8 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         var textAreaPositionY: CGFloat = alertViewPadding
         if (!isAlert()) {textAreaPositionY += alertViewPadding}
         
+        
+
         // TitleLabel
         if (hasTitle || isSimplify) {
             titleLabel.frame.size = CGSize(width: innerContentWidth, height: 30)
@@ -530,6 +538,8 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             titleLabel.font = titleFont
             titleLabel.textColor = titleTextColor
             titleLabel.text = title
+            titleLabel.minimumScaleFactor = 0.7
+            titleLabel.adjustsFontSizeToFitWidth = true
             if !isSimplify {
                 titleLabel.sizeToFit()
             }
@@ -548,6 +558,15 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             messageView.text = message
             if !isSimplify {
                 messageView.sizeToFit()
+            } else if isSimplify {
+                let lbH = getLabHeigh(message ?? "", titleFont!, innerContentWidth)
+                if lbH > 55 && lbH < 110 {
+                    messageView.frame.size.height = lbH
+                } else if lbH > 110 {
+                    messageView.frame.size.height = 110
+                    messageView.minimumScaleFactor = 0.5
+                    messageView.adjustsFontSizeToFitWidth = true
+                }
             }
             messageView.frame = CGRect(x: 0, y: textAreaPositionY, width: innerContentWidth, height: messageView.frame.height)
             textContainer.addSubview(messageView)
@@ -595,8 +614,11 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         var buttonAreaPositionY: CGFloat = isCustomSheet() ? squareButtonMargin : buttonMargin
         
         // Buttons
-        if (isAlert() && buttons.count == 2) {
-            let buttonWidth = isSimplify ? alertViewWidth*0.5 : (innerContentWidth - buttonMargin) / 2
+        if (isAlert() && buttons.count > 0 && buttons.count < 3) {
+            var buttonWidth = isSimplify ? alertViewWidth*0.5 : (innerContentWidth - buttonMargin) / 2
+            if buttons.count == 1 {
+                buttonWidth = isSimplify ? alertViewWidth : innerContentWidth
+            }
             var buttonPositionX : CGFloat = 0.0
             for button in buttons {
                 let action = actions[button.tag - 1] as! ZWAlertAction
