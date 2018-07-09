@@ -556,18 +556,22 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             messageView.font = messageFont
             messageView.textColor = messageTextColor
             messageView.text = message
+            messageView.sizeToFit()
+            /*
             if !isSimplify {
                 messageView.sizeToFit()
             } else if isSimplify {
                 let lbH = getLabHeigh(message ?? "", titleFont!, innerContentWidth)
-                if lbH > 55 && lbH < 110 {
-                    messageView.frame.size.height = lbH
-                } else if lbH > 110 {
-                    messageView.frame.size.height = 110
-                    messageView.minimumScaleFactor = 0.5
-                    messageView.adjustsFontSizeToFitWidth = true
-                }
+                messageView.frame.size.height = lbH
+//                if lbH > 55 && lbH < 110 {
+//                    messageView.frame.size.height = lbH
+//                } else if lbH > 110 {
+//                    messageView.frame.size.height = lbH
+//                    messageView.minimumScaleFactor = 0.5
+//                    messageView.adjustsFontSizeToFitWidth = true
+//                }
             }
+             */
             messageView.frame = CGRect(x: 0, y: textAreaPositionY, width: innerContentWidth, height: messageView.frame.height)
             textContainer.addSubview(messageView)
             textAreaPositionY += messageView.frame.height + (isSimplify ? 29.0 : 5.0)
