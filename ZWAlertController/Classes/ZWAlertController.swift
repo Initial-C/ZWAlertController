@@ -29,6 +29,7 @@ public enum ZWAlertControllerStyle : Int {
     case alert
     case customActionSheet
     case simplify
+    case customCardSheet
 }
 
 // MARK: ZWAlertAction Class
@@ -224,7 +225,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     fileprivate var buttonContainerHeightConstraint: NSLayoutConstraint!
     fileprivate var buttonHeight: CGFloat = 44.0
     fileprivate var buttonMargin: CGFloat = 10.0
-    fileprivate let squareButtonHeight : CGFloat = 55
+    fileprivate var squareButtonHeight : CGFloat = 55
     fileprivate var squareButtonMargin : CGFloat = 2.0
     fileprivate let squareButtonFont = UIFont.systemFont(ofSize: 14)
     fileprivate let squareIconButtonFont = UIFont.systemFont(ofSize: 15)
@@ -250,12 +251,12 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         return zwAlert
     }
     public var buttonFont: [ZWAlertActionStyle : UIFont?] = [
-        .default : UIFont(name: "HelveticaNeue-Bold", size: 16),
-        .cancel  : UIFont(name: "HelveticaNeue-Bold", size: 16),
-        .destructive  : UIFont(name: "HelveticaNeue-Bold", size: 16),
-        .simplifyCancel : UIFont(name: "PingFangSC-Medium", size: 16),
-        .simplifyDefault : UIFont(name: "PingFangSC-Medium", size: 16),
-        .simplifyDestructive : UIFont(name: "PingFangSC-Medium", size: 16)
+        .default : UIFont(name: "HelveticaNeue-Bold", size: 15),
+        .cancel  : UIFont(name: "HelveticaNeue-Bold", size: 15),
+        .destructive  : UIFont(name: "HelveticaNeue-Bold", size: 15),
+        .simplifyCancel : UIFont(name: "PingFangSC-Medium", size: 15),
+        .simplifyDefault : UIFont(name: "PingFangSC-Medium", size: 15),
+        .simplifyDestructive : UIFont(name: "PingFangSC-Medium", size: 15)
     ]
     public var buttonTextColor: [ZWAlertActionStyle : UIColor] = [
         .default : UIColor.white,
@@ -317,7 +318,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         
         // variable for ActionSheet
         if (!isAlert()) {
-            if !isCustomSheet() {
+            if !isCustomSheet() && !isCardSheet {
                 alertViewWidth =  screenSize.width
                 alertViewPadding = 8.0
                 innerContentWidth = (screenSize.height > screenSize.width) ? screenSize.width - alertViewPadding * 2 : screenSize.height - alertViewPadding * 2
@@ -328,9 +329,17 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                 alertViewWidth = screenSize.width
                 alertViewPadding = 0.0
                 innerContentWidth = (screenSize.height > screenSize.width) ? screenSize.width : screenSize.height
-                buttonMargin = 5.0  // cancel button margin
-                squareButtonMargin = 2.0
-                buttonCornerRadius = 0.0
+                if isCustomSheet() {
+                    buttonMargin = 5.0  // cancel button margin
+                    squareButtonMargin = 2.0
+                    buttonCornerRadius = 0.0
+                    squareButtonHeight = 55
+                } else {
+                    buttonMargin = 0  // cancel button margin
+                    squareButtonMargin = 0.5
+                    buttonCornerRadius = 15
+                    squareButtonHeight = 45
+                }
             }
         }
         
@@ -513,7 +522,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         overlayView.backgroundColor = overlayColor
         alertView.backgroundColor = alertViewBgColor
         
-        if !isCustomSheet() {
+        if !isCustomSheet() && !isCardSheet {
             alertView.layer.cornerRadius = isSimplify ? 10 : 12
             alertView.layer.masksToBounds = true
         }
@@ -615,7 +624,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         //------------------------------
         // ButtonArea Layout
         //------------------------------
-        var buttonAreaPositionY: CGFloat = isCustomSheet() ? squareButtonMargin : buttonMargin
+        var buttonAreaPositionY: CGFloat = isBothCardSheet ? squareButtonMargin : buttonMargin
         
         // Buttons
         if (isAlert() && buttons.count > 0 && buttons.count < 3) {
@@ -639,7 +648,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             for button in buttons {
                 let action = actions[button.tag - 1] as! ZWAlertAction
                 if (action.style != ZWAlertActionStyle.cancel) {
-                    if !isCustomSheet() {
+                    if !isCustomSheet() && !isCardSheet {
                         button.titleLabel?.font = buttonFont[action.style]!
                         button.setTitleColor(buttonTextColor[action.style], for: UIControlState())
                         button.setBackgroundImage(createImageFromUIColor(buttonBgColor[action.style]!), for: UIControlState())
@@ -667,6 +676,13 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                         }
                         buttonAreaPositionY = buttonAreaPositionY == squareButtonMargin ? 0.0 : buttonAreaPositionY
                         button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: squareButtonHeight)
+//                        if isCardSheet && buttonAreaPositionY == 0 {
+//                            let slideCornerPath = UIBezierPath.init(roundedRect: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: innerContentWidth, height: button.frame.height)), byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize.init(width: 15, height: 15))
+//                            let slideMaskLayer = CAShapeLayer.init()
+//                            slideMaskLayer.frame = button.bounds
+//                            slideMaskLayer.path = slideCornerPath.cgPath
+//                            button.layer.mask = slideMaskLayer
+//                        }
                         buttonAreaPositionY += squareButtonHeight + squareButtonMargin
                     }
                 } else {
@@ -686,12 +702,12 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                 let isNormalBtn = action.image == nil
                 let btnFont = isNormalBtn ? squareButtonFont : squareIconButtonFont
                 let btnStrColor = isNormalBtn ? squareNormalTextColor : squareIconNormalTextColor
-                let btnTextColor = isCustomSheet() ? btnStrColor : buttonTextColor[action.style]
+                let btnTextColor = isBothCardSheet ? btnStrColor : buttonTextColor[action.style]
                 let btnHighSelectedColor = UIColor(red:245/255, green:245/255, blue:245/255, alpha:1.0)
-                let btnCancelNormalColorImage = isCustomSheet() ? createImageFromUIColor(.white) : createImageFromUIColor(buttonBgColor[action.style]!)
-                let btnCancelColorImage = isCustomSheet() ? createImageFromUIColor(btnHighSelectedColor) : createImageFromUIColor(buttonBgColorHighlighted[action.style]!)
-                let btnCancelHeight = isCustomSheet() ? (isIPhoneXSpec ? squareButtonHeight + 34 : squareButtonHeight) : buttonHeight
-                button.titleLabel?.font = isCustomSheet() ? btnFont : buttonFont[action.style]!
+                let btnCancelNormalColorImage = isBothCardSheet ? createImageFromUIColor(.white) : createImageFromUIColor(buttonBgColor[action.style]!)
+                let btnCancelColorImage = isBothCardSheet ? createImageFromUIColor(btnHighSelectedColor) : createImageFromUIColor(buttonBgColorHighlighted[action.style]!)
+                let btnCancelHeight = isBothCardSheet ? (isIPhoneXSpec ? squareButtonHeight + 34 : squareButtonHeight) : buttonHeight
+                button.titleLabel?.font = isBothCardSheet ? btnFont : buttonFont[action.style]!
                 button.setTitleColor(btnTextColor, for: UIControlState())
                 button.setBackgroundImage(btnCancelNormalColorImage, for: UIControlState())
                 button.setBackgroundImage(btnCancelColorImage, for: .highlighted)
@@ -724,6 +740,13 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         // AlertView Height
         reloadAlertViewHeight()
         alertView.frame.size = CGSize(width: alertViewWidth, height: alertViewHeightConstraint.constant)
+        if isCardSheet {
+            let slideCornerPath = UIBezierPath.init(roundedRect: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: alertView.frame.width, height: alertView.frame.height)), byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize.init(width: 15, height: 15))
+            let slideMaskLayer = CAShapeLayer.init()
+            slideMaskLayer.frame = alertView.bounds
+            slideMaskLayer.path = slideCornerPath.cgPath
+            alertView.layer.mask = slideMaskLayer
+        }
     }
     
     // Reload AlertView Height
@@ -851,7 +874,9 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         button.layer.masksToBounds = true
         button.setTitle(action.title, for: UIControlState())
         button.isEnabled = action.enabled
-        button.layer.cornerRadius = buttonCornerRadius
+        if !isCardSheet {
+            button.layer.cornerRadius = buttonCornerRadius
+        }
         button.addTarget(self, action: #selector(ZWAlertController.buttonTapped(_:)), for: .touchUpInside)
         if action.style == .default || action.style == .destructive {
             self.currentAction = action
@@ -893,6 +918,16 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     
     open func isAlert() -> Bool { return preferredStyle == .alert || preferredStyle == .simplify }
     fileprivate func isCustomSheet() -> Bool { return preferredStyle == .customActionSheet}
+    fileprivate var isCardSheet : Bool {
+        get {
+            return preferredStyle == .customCardSheet
+        }
+    }
+    fileprivate var isBothCardSheet : Bool {
+        get {
+            return isCardSheet || isCustomSheet()
+        }
+    }
     fileprivate var isSimplify : Bool {
         get {
             return preferredStyle == .simplify

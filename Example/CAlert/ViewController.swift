@@ -367,7 +367,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         let cancelButtonTitle = "Cancel"
         let destructiveButtonTitle = "OK"
         
-        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customActionSheet)
+        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customCardSheet)
         
         // Create the actions.
         let cancelAction = ZWAlertAction(title: cancelButtonTitle, style: .cancel) { action in
@@ -393,19 +393,19 @@ class ViewController : UITableViewController, UITextFieldDelegate {
     func showCustomSquareLeftStyleActionSheet(_ selectedIndexPath: IndexPath) {
         let cancelButtonTitle = "Cancel"
         
-        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customActionSheet)
+        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customCardSheet)
         
         // Create the actions.
         let cancelAction = ZWAlertAction(title: cancelButtonTitle, image: #imageLiteral(resourceName: "wd-gl"), style: .cancel) { action in
             NSLog("The \"Default/Cancel\" alert action sheet's cancel action occured.")
         }
         
-//        let defaultAction = ZWAlertAction(title: "Default action", image: #imageLiteral(resourceName: "wd-cj"), style: .default) { action in
-//            NSLog("The \"Default/Cancel\" alert action sheet's default action occured.")
-//        }
+        let defaultAction = ZWAlertAction(title: "Default action", image: #imageLiteral(resourceName: "wd-cj"), style: .default) { action in
+            NSLog("The \"Default/Cancel\" alert action sheet's default action occured.")
+        }
         // Add the actions.
         alertController.addAction(cancelAction)
-//        alertController.addAction(defaultAction)
+        alertController.addAction(defaultAction)
         present(alertController, animated: true, completion: nil)
     }
     
