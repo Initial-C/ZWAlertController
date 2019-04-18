@@ -14,7 +14,7 @@ import UIKit
 
 let ZWAlertActionEnabledDidChangeNotification = "ZWAlertActionEnabledDidChangeNotification"
 let zwAlert = ZWAlertController()
-private let isIPhoneXSpec = UIScreen.main.bounds.height == 812
+private let isIPhoneXSpec = UIScreen.main.bounds.height / UIScreen.main.bounds.width > 1.8
 public enum ZWAlertActionStyle : Int {
     case `default`
     case cancel
@@ -25,11 +25,16 @@ public enum ZWAlertActionStyle : Int {
 }
 
 public enum ZWAlertControllerStyle : Int {
-    case actionSheet
     case alert
-    case customActionSheet
     case simplify
+    case actionSheet
+    case customSheet
     case customCardSheet
+//    case actionSheet
+//    case alert
+//    case customSheet
+//    case simplify
+//    case customCardSheet
 }
 
 // MARK: ZWAlertAction Class
@@ -294,7 +299,6 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         self.title = title
         self.message = message
         self.preferredStyle = preferredStyle
-        
         self.resizeProperties()
         self.providesPresentationContextTransitionStyle = true
         self.definesPresentationContext = true
@@ -302,8 +306,8 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         
         // NotificationCenter
         NotificationCenter.default.addObserver(self, selector: #selector(ZWAlertController.handleAlertActionEnabledDidChangeNotification(_:)), name: NSNotification.Name(rawValue: ZWAlertActionEnabledDidChangeNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ZWAlertController.handleKeyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ZWAlertController.handleKeyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ZWAlertController.handleKeyboardWillShowNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ZWAlertController.handleKeyboardWillHideNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // Delegate
         self.transitioningDelegate = self
@@ -311,7 +315,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         // Screen Size
         var screenSize = UIScreen.main.bounds.size
         if ((UIDevice.current.systemVersion as NSString).floatValue < 8.0) {
-            if (UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation)) {
+            if (UIApplication.shared.statusBarOrientation.isLandscape) {
                 screenSize = CGSize(width: screenSize.height, height: screenSize.width)
             }
         }
@@ -509,7 +513,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     private func getLabHeigh(_ labelStr:String, _ font:UIFont, _ width:CGFloat) -> CGFloat {
         let statusLabelText : NSString = NSString.init(string: labelStr)
         let size = CGSize.init(width: width, height: 900)
-        let strSize = statusLabelText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font : font], context: nil).size
+        let strSize = statusLabelText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context: nil).size
         return strSize.height
     }
     func layoutView() {
@@ -636,8 +640,8 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
             for button in buttons {
                 let action = actions[button.tag - 1] as! ZWAlertAction
                 button.titleLabel?.font = buttonFont[action.style]!
-                button.setTitleColor(buttonTextColor[action.style], for: UIControlState())
-                button.setBackgroundImage(createImageFromUIColor(buttonBgColor[action.style]!), for: UIControlState())
+                button.setTitleColor(buttonTextColor[action.style], for: UIControl.State())
+                button.setBackgroundImage(createImageFromUIColor(buttonBgColor[action.style]!), for: UIControl.State())
                 button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .highlighted)
                 button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .selected)
                 button.frame = CGRect(x: buttonPositionX, y: buttonAreaPositionY, width: buttonWidth, height: buttonHeight)
@@ -650,8 +654,8 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                 if (action.style != ZWAlertActionStyle.cancel) {
                     if !isCustomSheet() && !isCardSheet {
                         button.titleLabel?.font = buttonFont[action.style]!
-                        button.setTitleColor(buttonTextColor[action.style], for: UIControlState())
-                        button.setBackgroundImage(createImageFromUIColor(buttonBgColor[action.style]!), for: UIControlState())
+                        button.setTitleColor(buttonTextColor[action.style], for: UIControl.State())
+                        button.setBackgroundImage(createImageFromUIColor(buttonBgColor[action.style]!), for: UIControl.State())
                         button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .highlighted)
                         button.setBackgroundImage(createImageFromUIColor(buttonBgColorHighlighted[action.style]!), for: .selected)
                         button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: buttonHeight)
@@ -664,15 +668,15 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                         let btnTextColor = action.style == .destructive ? squareDestructiveTextColor : btnStrColor
                         let btnHighSelectedColor = UIColor(red:245/255, green:245/255, blue:245/255, alpha:1.0)
                         let btnGeneralColorImage = createImageFromUIColor(btnHighSelectedColor)
-                        button.setTitleColor(btnTextColor, for: UIControlState())
-                        button.setBackgroundImage(createImageFromUIColor(.white), for: UIControlState())
+                        button.setTitleColor(btnTextColor, for: UIControl.State())
+                        button.setBackgroundImage(createImageFromUIColor(.white), for: UIControl.State())
                         button.setBackgroundImage(btnGeneralColorImage, for: .highlighted)
                         button.setBackgroundImage(btnGeneralColorImage, for: .selected)
                         if let image = action.image {
-                            button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+                            button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
                             button.setImage(image, for: .normal)
-                            button.imageEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0)
-                            button.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
+                            button.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 12, bottom: 0, right: 0)
+                            button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 0)
                         }
                         buttonAreaPositionY = buttonAreaPositionY == squareButtonMargin ? 0.0 : buttonAreaPositionY
                         button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: squareButtonHeight)
@@ -706,19 +710,19 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
                 let btnHighSelectedColor = UIColor(red:245/255, green:245/255, blue:245/255, alpha:1.0)
                 let btnCancelNormalColorImage = isBothCardSheet ? createImageFromUIColor(.white) : createImageFromUIColor(buttonBgColor[action.style]!)
                 let btnCancelColorImage = isBothCardSheet ? createImageFromUIColor(btnHighSelectedColor) : createImageFromUIColor(buttonBgColorHighlighted[action.style]!)
-                let btnCancelHeight = isBothCardSheet ? (isIPhoneXSpec ? squareButtonHeight + 34 : squareButtonHeight) : buttonHeight
+                let btnCancelHeight = isAlert() ? buttonHeight : isIPhoneXSpec ? (isBothCardSheet ? squareButtonHeight + 34 : buttonHeight) : (isBothCardSheet ? squareButtonHeight : buttonHeight)
                 button.titleLabel?.font = isBothCardSheet ? btnFont : buttonFont[action.style]!
-                button.setTitleColor(btnTextColor, for: UIControlState())
-                button.setBackgroundImage(btnCancelNormalColorImage, for: UIControlState())
+                button.setTitleColor(btnTextColor, for: UIControl.State())
+                button.setBackgroundImage(btnCancelNormalColorImage, for: UIControl.State())
                 button.setBackgroundImage(btnCancelColorImage, for: .highlighted)
                 button.setBackgroundImage(btnCancelColorImage, for: .selected)
                 if let image = action.image {
-                    button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+                    button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
                     button.setImage(image, for: .normal)
-                    button.imageEdgeInsets = UIEdgeInsetsMake(isIPhoneXSpec ? -34 : 0, 12, 0, 0)
+                    button.imageEdgeInsets = UIEdgeInsets.init(top: isIPhoneXSpec ? -34 : 0, left: 12, bottom: 0, right: 0)
                 }
                 button.frame = CGRect(x: 0, y: buttonAreaPositionY, width: innerContentWidth, height: btnCancelHeight)
-                button.titleEdgeInsets = UIEdgeInsetsMake(isIPhoneXSpec ? -34 : 0, isNormalBtn ? 0 : 20, 0, 0)
+                button.titleEdgeInsets = UIEdgeInsets.init(top: isIPhoneXSpec && isBothCardSheet ? -34 : 0, left: isNormalBtn ? 0 : 20, bottom: 0, right: 0)
                 buttonAreaPositionY += btnCancelHeight + buttonMargin
             }
             buttonAreaPositionY -= buttonMargin
@@ -754,7 +758,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         
         var screenSize = UIScreen.main.bounds.size
         if ((UIDevice.current.systemVersion as NSString).floatValue < 8.0) {
-            if (UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation)) {
+            if (UIApplication.shared.statusBarOrientation.isLandscape) {
                 screenSize = CGSize(width: screenSize.height, height: screenSize.width)
             }
         }
@@ -828,9 +832,9 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     
     @objc func handleKeyboardWillShowNotification(_ notification: Notification) {
         if let userInfo = notification.userInfo as? [String: NSValue] {
-            var keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.cgRectValue.size
+            var keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey]!.cgRectValue.size
             if ((UIDevice.current.systemVersion as NSString).floatValue < 8.0) {
-                if (UIInterfaceOrientationIsLandscape(UIApplication.shared.statusBarOrientation)) {
+                if (UIApplication.shared.statusBarOrientation.isLandscape) {
                     keyboardSize = CGSize(width: keyboardSize.height, height: keyboardSize.width)
                 }
             }
@@ -872,7 +876,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         // Add Button
         let button = UIButton()
         button.layer.masksToBounds = true
-        button.setTitle(action.title, for: UIControlState())
+        button.setTitle(action.title, for: UIControl.State())
         button.isEnabled = action.enabled
         if !isCardSheet {
             button.layer.cornerRadius = buttonCornerRadius
@@ -902,7 +906,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
         
         let textField = ZWTextField()
         textField.frame.size = CGSize(width: innerContentWidth, height: textFieldHeight)
-        textField.borderStyle = UITextBorderStyle.none
+        textField.borderStyle = UITextField.BorderStyle.none
         textField.backgroundColor = textFieldBgColor
         textField.delegate = self
         if textLimit != nil {
@@ -917,7 +921,7 @@ open class ZWAlertController : UIViewController, UITextFieldDelegate, UIViewCont
     }
     
     open func isAlert() -> Bool { return preferredStyle == .alert || preferredStyle == .simplify }
-    fileprivate func isCustomSheet() -> Bool { return preferredStyle == .customActionSheet}
+    fileprivate func isCustomSheet() -> Bool { return preferredStyle == .customSheet}
     fileprivate var isCardSheet : Bool {
         get {
             return preferredStyle == .customCardSheet

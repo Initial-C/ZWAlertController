@@ -73,7 +73,7 @@ open class CFashionAlert: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         self.view.frame = kDeviceScreenBounds
-        self.view.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
+        self.view.autoresizingMask = [UIView.AutoresizingMask.flexibleHeight, UIView.AutoresizingMask.flexibleWidth]
         self.view.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:kBackgroundAlpha)
         self.view.addSubview(contentView)
         
@@ -123,7 +123,7 @@ extension CFashionAlert {
         webView.isOpaque = false
         webView.uiDelegate = nil
         webView.navigationDelegate = nil
-        webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal
+        webView.scrollView.decelerationRate = UIScrollView.DecelerationRate.normal
         if let urlStr = urlStr {
             if urlStr.isEmpty == false {
                 webView.load(URLRequest.init(url: URL(string: urlStr)!))
@@ -380,7 +380,7 @@ extension CFashionAlert {
         
         let window: UIWindow = UIApplication.shared.keyWindow!
         window.addSubview(view)
-        window.bringSubview(toFront: view)
+        window.bringSubviewToFront(view)
         view.frame = window.bounds
         self.setupContentView()
         self.setupTitleLabel()
@@ -400,15 +400,15 @@ extension CFashionAlert {
         }
         buttons.removeAll()
         if leftBtnTitle?.isEmpty == false {
-            let button: UIButton = UIButton(type: UIButtonType.custom)
-            button.setTitle(leftBtnTitle, for: UIControlState())
+            let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
+            button.setTitle(leftBtnTitle, for: UIControl.State())
             button.isUserInteractionEnabled = true
             button.tag = 0
             buttons.append(button)
         }
         if leftBtnTitle?.isEmpty == false && rightBtnTitle?.isEmpty == false {
-            let button: UIButton = UIButton(type: UIButtonType.custom)
-            button.setTitle(rightBtnTitle, for: UIControlState())
+            let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
+            button.setTitle(rightBtnTitle, for: UIControl.State())
             button.isUserInteractionEnabled = true
             button.tag = 1
             buttons.append(button)
@@ -424,7 +424,7 @@ extension CFashionAlert {
         
         let window: UIWindow = UIApplication.shared.keyWindow!
         window.addSubview(view)
-        window.bringSubview(toFront: view)
+        window.bringSubviewToFront(view)
         view.frame = window.bounds
         self.setupContentView()
         self.setupSubtitleTextView()
@@ -461,7 +461,7 @@ extension CFashionAlert {
         }
     }
     func closeAlert(_ buttonIndex:Int) {
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
             self.view.alpha = 0.0
         }) { (Bool) -> Void in
             self.view.removeFromSuperview()

@@ -36,10 +36,10 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             // Action sheet style alerts.
             [
                 self.showOkayCancelActionSheet,
-                self.showCustomSquareStyleActionSheet,
-                self.showCustomSquareLeftStyleActionSheet,
                 self.showOtherActionSheet,
-                self.showCustomActionSheet
+                self.showCustomActionSheet,
+                self.showCustomSquareStyleActionSheet,
+                self.showCustomSquareLeftStyleActionSheet
             ]
         ]
     }
@@ -170,14 +170,14 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             // Listen for changes to the text field's text so that we can toggle the current
             // action's enabled property based on whether the user has entered a sufficiently
             // secure entry.
-            NotificationCenter.default.addObserver(self, selector: #selector(ViewController.handleTextFieldTextDidChangeNotification(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
+            NotificationCenter.default.addObserver(self, selector: #selector(ViewController.handleTextFieldTextDidChangeNotification(_:)), name: UITextField.textDidChangeNotification, object: textField)
             
             textField?.isSecureTextEntry = true
         }
         
         // Stop listening for text change notifications on the text field. This closure will be called in the two action handlers.
         let removeTextFielZWbserver: () -> Void = {
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: alertController.textFields!.first)
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: alertController.textFields!.first)
         }
         
         // Create the actions.
@@ -246,7 +246,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             label.text = "ID"
             label.font = UIFont(name: "GillSans-Bold", size: 15.0)
             textField?.leftView = label
-            textField?.leftViewMode = UITextFieldViewMode.always
+            textField?.leftViewMode = UITextField.ViewMode.always
             
             textField?.delegate = self
         }
@@ -264,7 +264,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             label.text = "PASS"
             label.font = UIFont(name: "GillSans-Bold", size: 15.0)
             textField?.leftView = label
-            textField?.leftViewMode = UITextFieldViewMode.always
+            textField?.leftViewMode = UITextField.ViewMode.always
             
             textField?.delegate = self
         }
@@ -305,7 +305,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
             print("存在图片资源")
         }
         CFashionAlert.getFashion().isFashionBoard = true
-        CFashionAlert.getFashion().showFashionAmazing(titleType: .warning, subtitle: "所有歌词将被重置为初始状态，确定吗？", leftBtnType: .cancle, rightBtnType: .confirm, backImage: nil) { (result) in
+        CFashionAlert.getFashion().showFashionAmazing(titleType: .warning, subtitle: "This is a alert", leftBtnType: .cancle, rightBtnType: .confirm, backImage: nil) { (result) in
             if result {
                 print("点击确定")
             }
@@ -314,7 +314,7 @@ class ViewController : UITableViewController, UITextFieldDelegate {
     /// Show the alert style - Simplify
     func showSimplifyOkayCancelAlert(_ : IndexPath) {
 //        let title = "Okay/Cancel Simplify Alert"
-        let message = "MUTA音乐 2.0.8 版本更新\n\n米娜桑大家好：\n这次来到了2.0.8改版"//"A message should be a short, complete sentence. "
+        let message = "A message should be a short, \n complete sentence. "
         let cancelButtonTitle = "Cancel"
         let otherButtonTitle = "OK"
         
@@ -357,55 +357,6 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         alertController.addAction(cancelAction)
         alertController.addAction(destructiveAction)
         
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Show a custom square style sheet alert
-    ///
-    /// - Parameter selectedIndexPath: tableview selected indexpath
-    func showCustomSquareStyleActionSheet(_ selectedIndexPath: IndexPath) {
-        let cancelButtonTitle = "Cancel"
-        let destructiveButtonTitle = "OK"
-        
-        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customCardSheet)
-        
-        // Create the actions.
-        let cancelAction = ZWAlertAction(title: cancelButtonTitle, style: .cancel) { action in
-            NSLog("The \"Okay/Cancel\" alert action sheet's cancel action occured.")
-        }
-        
-        let destructiveAction = ZWAlertAction(title: destructiveButtonTitle, style: .destructive) { action in
-            NSLog("The \"Okay/Cancel\" alert action sheet's destructive action occured.")
-        }
-        
-        let otherAction = ZWAlertAction(title: "Other", style: .default) { (action) in
-            NSLog("The \"Okay/Cancel\" alert action sheet's default action occured.")
-        }
-        // Add the actions.
-        alertController.addAction(cancelAction)
-        alertController.addAction(destructiveAction)
-        alertController.addAction(otherAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    /// Show a custom square style sheet alert with icon
-    ///
-    /// - Parameter selectedIndexPath: tableview selected indexpath
-    func showCustomSquareLeftStyleActionSheet(_ selectedIndexPath: IndexPath) {
-        let cancelButtonTitle = "Cancel"
-        
-        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customCardSheet)
-        
-        // Create the actions.
-        let cancelAction = ZWAlertAction(title: cancelButtonTitle, image: #imageLiteral(resourceName: "wd-gl"), style: .cancel) { action in
-            NSLog("The \"Default/Cancel\" alert action sheet's cancel action occured.")
-        }
-        
-        let defaultAction = ZWAlertAction(title: "Default action", image: #imageLiteral(resourceName: "wd-cj"), style: .default) { action in
-            NSLog("The \"Default/Cancel\" alert action sheet's default action occured.")
-        }
-        // Add the actions.
-        alertController.addAction(cancelAction)
-        alertController.addAction(defaultAction)
         present(alertController, animated: true, completion: nil)
     }
     
@@ -481,6 +432,56 @@ class ViewController : UITableViewController, UITextFieldDelegate {
         alertController.addAction(otherAction)
         alertController.addAction(destructiveAction)
         
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Show a custom square style sheet alert
+    ///
+    /// - Parameter selectedIndexPath: tableview selected indexpath
+    func showCustomSquareStyleActionSheet(_ selectedIndexPath: IndexPath) {
+        let cancelButtonTitle = "Cancel"
+        let destructiveButtonTitle = "OK"
+        
+        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customCardSheet)
+        
+        // Create the actions.
+        let cancelAction = ZWAlertAction(title: cancelButtonTitle, style: .cancel) { action in
+            NSLog("The \"Okay/Cancel\" alert action sheet's cancel action occured.")
+        }
+        
+        let destructiveAction = ZWAlertAction(title: destructiveButtonTitle, style: .destructive) { action in
+            NSLog("The \"Okay/Cancel\" alert action sheet's destructive action occured.")
+        }
+        
+        let otherAction = ZWAlertAction(title: "Other", style: .default) { (action) in
+            NSLog("The \"Okay/Cancel\" alert action sheet's default action occured.")
+        }
+        // Add the actions.
+        alertController.addAction(cancelAction)
+        alertController.addAction(destructiveAction)
+        alertController.addAction(otherAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Show a custom square style sheet alert with icon
+    ///
+    /// - Parameter selectedIndexPath: tableview selected indexpath
+    func showCustomSquareLeftStyleActionSheet(_ selectedIndexPath: IndexPath) {
+        let cancelButtonTitle = "Cancel"
+        
+        let alertController = ZWAlertController(title: nil, message: nil, preferredStyle: .customCardSheet)
+        
+        // Create the actions.
+        let cancelAction = ZWAlertAction(title: cancelButtonTitle, image: #imageLiteral(resourceName: "wd-gl"), style: .cancel) { action in
+            NSLog("The \"Default/Cancel\" alert action sheet's cancel action occured.")
+        }
+        
+        let defaultAction = ZWAlertAction(title: "Default action", image: #imageLiteral(resourceName: "wd-cj"), style: .default) { action in
+            NSLog("The \"Default/Cancel\" alert action sheet's default action occured.")
+        }
+        // Add the actions.
+        alertController.addAction(cancelAction)
+        alertController.addAction(defaultAction)
         present(alertController, animated: true, completion: nil)
     }
     

@@ -13,14 +13,18 @@
 
  Module | Address | Version | Date | Author
 :------:|:-------:|:-------:|:----:|:-----:|
-ZWAlert&ZWAlertController |  https://github.com/Initial-C/ZWAlertController.git | 0.2.0 | 2018.06.11 | Initial-C
+ZWAlert&ZWAlertController |  https://github.com/Initial-C/ZWAlertController.git | 0.3.0 | 2019.04.18 | Initial-C
 
 #### ⚠️ **To use with Swift 3.x please ensure you are using == 0.0.8.6** ⚠️ 
 #### ⚠️ **To use with Swift 4.x please use above 0.2.0 version ** ⚠️ 
+#### ⚠️ **To use with Swift 5.x please use above 0.3.0 version ** ⚠️ 
+
+__Swift 3.x请使用0.0.8.6__
 
 __Swift 4.0请使用0.2.0以上版本__
 
-__Swift 3.x请使用0.0.8.6__
+__Swift 5.0请使用0.3.0以上版本__
+
 ## Example
 &emsp; __0.0.3 version were updated something about limit characters, it can limit the input of Chinese and English Emoji more precisely__
 
@@ -29,8 +33,12 @@ __Swift 3.x请使用0.0.8.6__
 &emsp; __0.1.2 版本新增方块样式, 可以在初始化时使用.customActionSheet__
 &emsp; __0.1.2 version of the new custom style, you can use.CustomActionSheet at initialization__
 
-&emsp; __0.2.0 版本新增简约弹窗样式, 可以在初始化时使用.simplify__
+&emsp; __0.2.0 版本新增简约卡片弹窗样式, 可以在初始化时使用.simplify和CustomCardSheet样式__
 &emsp; __0.2.0 version of the new simplify style, you can use.simplify at initialization__
+
+&emsp; __0.3.0 优化并增加支持Swift5.0__
+&emsp; __0.3.0 Upgrade to Swift 5__
+
 
 &emsp; To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
